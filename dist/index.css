@@ -7,14 +7,44 @@ body {
   /* overflow-x: hidden; */
 }
 
+.task-modal {
+  /* display: block; */
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.project-modal {
+  /* display: block; */
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
 .todo-edit {
-  display: block;
-  /* display: none; */
+  /* display: block; */
+  display: none;
 }
 
 .todo-details {
-  display: block;
-  /* display: none; */
+  /* display: block; */
+  display: none;
+}
+
+div.todo-main-container {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1650px;
 }
 
 .todo-item-container {

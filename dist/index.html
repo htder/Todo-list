@@ -20,7 +20,7 @@
     <!-- HEADER -->
     <!-- HEADER -->
     <header
-      class="d-flex flex-wrap justify-content-center py-3 border-bottom bg-light"
+      class="d-flex flex-wrap justify-content-center px-4 py-3 border-bottom border-secondary bg-light"
     >
       <a
         href="/"
@@ -355,6 +355,28 @@
       </div>
     </div>
 
+    <!-- FOOTER -->
+    <!-- FOOTER -->
+    <!-- FOOTER -->
+    <!-- FOOTER -->
+    <div>
+      <footer
+        class="d-flex flex-wrap justify-content-center px-4 py-3 border-top border-secondary bg-light"
+      >
+        <div class="justify-content-center align-items-center">
+          <a>
+            <span>TooDoo app</span>
+            <img
+              class=""
+              width="40"
+              height="32"
+              src="../icons/clipboard-check.svg"
+            />
+          </a>
+        </div>
+      </footer>
+    </div>
+
     <!-- TASK MODAL-->
     <!-- TASK MODAL-->
     <!-- TASK MODAL-->
@@ -365,12 +387,12 @@
     <!-- TASK MODAL-->
 
     <div
-      class="modal modal-signin position-static d-block bg-secondary py-5"
+      class="modal modal-signin bg-secondary py-5 task-modal"
       tabindex="-1"
       role="dialog"
-      id="modalSignin"
+      id="task-modal"
     >
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog task-model-content" role="document">
         <div class="modal-content rounded-5 shadow">
           <div class="modal-header p-5 pb-4 border-bottom-0">
             <!-- <h5 class="modal-title">Modal title</h5> -->
@@ -498,7 +520,7 @@
     <!-- PROJECT MODAL-->
     <!-- PROJECT MODAL-->
     <div
-      class="modal modal-signin position-static d-block bg-secondary py-5"
+      class="modal modal-signin bg-secondary py-5 project-modal"
       tabindex="-1"
       role="dialog"
       id="modalSignin"

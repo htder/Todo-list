@@ -165,7 +165,7 @@
         <!--- TODO LIST MAIN -->
         <!--- TODO LIST MAIN -->
         <!--- TODO LIST MAIN -->
-        <div class="col-10 col-sm-9 col-md-9 col-xl-10 todo-main-container">
+        <div class="col-9 col-sm-8 col-md-9 col-xl-10 todo-main-container">
           <div class="m-4 py-1 bg-light border border-secondary rounded-3">
             <div class="row m-4 p-2 bg-white rounded-3 border-bottom">
               <div
@@ -174,9 +174,21 @@
                 <input type="checkbox" />
               </div>
               <div
-                class="col-md-7 d-flex align-items-center justify-content-md-start justify-content-center"
+                class="col-md-6 d-flex align-items-center justify-content-md-start justify-content-center"
               >
                 Title
+              </div>
+              <div
+                class="col-md-1 d-flex align-items-center justify-md-start justify-content-center"
+              >
+                <a href="#" class="nav-link link-dark">
+                  <img
+                    class=""
+                    width="16"
+                    height="16"
+                    src="../icons/caret-down.svg"
+                  />
+                </a>
               </div>
               <div
                 class="col-md-2 d-flex align-items-center justify-content-md-start justify-content-center"
@@ -184,7 +196,19 @@
                 Date
               </div>
               <div
-                class="col-md-2 d-flex align-items-center justify-md-start justify-content-center"
+                class="col-md-1 d-flex align-items-center justify-md-start justify-content-center"
+              >
+                <a href="#" class="nav-link link-dark">
+                  <img
+                    class=""
+                    width="16"
+                    height="16"
+                    src="../icons/pencil-square.svg"
+                  />
+                </a>
+              </div>
+              <div
+                class="col-md-1 d-flex align-items-center justify-md-start justify-content-center"
               >
                 <a href="#" class="nav-link link-dark">
                   <img
@@ -196,93 +220,104 @@
                 </a>
               </div>
             </div>
-            <div class="row m-4 p-2 bg-white rounded-3 border-bottom">
-              <div
-                class="col-md-1 py-1 d-flex justify-content-md-end justify-content-center"
-              >
-                <input type="checkbox" />
-              </div>
-              <div
-                class="col-md-7 d-flex align-items-center justify-content-md-start justify-content-center"
-              >
-                Title
-              </div>
-              <div
-                class="col-md-2 d-flex align-items-center justify-content-md-start justify-content-center"
-              >
-                Date
-              </div>
-              <div
-                class="col-md-2 d-flex align-items-center justify-md-start justify-content-center"
-              >
-                <a href="#" class="nav-link link-dark">
-                  <img
-                    class=""
-                    width="16"
-                    height="16"
-                    src="../icons/trash.svg"
+
+            <!-- SHOW DETAILS-->
+            <!-- SHOW DETAILS-->
+
+            <!-- SHOW DETAILS-->
+
+            <!-- EDIT TASK-->
+            <!-- EDIT TASK-->
+            <!-- EDIT TASK-->
+
+            <div class="modal-body p-5 pt-0 todo-edit">
+              <form class="border border-secondary p-3 rounded-3">
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control rounded-4"
+                    id="floatingTitle"
+                    placeholder="name@example.com"
                   />
-                </a>
-              </div>
-            </div>
-            <div class="row m-4 p-2 bg-white rounded-3 border-bottom">
-              <div
-                class="col-md-1 py-1 d-flex justify-content-md-end justify-content-center"
-              >
-                <input type="checkbox" />
-              </div>
-              <div
-                class="col-md-7 d-flex align-items-center justify-content-md-start justify-content-center"
-              >
-                Title
-              </div>
-              <div
-                class="col-md-2 d-flex align-items-center justify-content-md-start justify-content-center"
-              >
-                Date
-              </div>
-              <div
-                class="col-md-2 d-flex align-items-center justify-md-start justify-content-center"
-              >
-                <a href="#" class="nav-link link-dark">
-                  <img
-                    class=""
-                    width="16"
-                    height="16"
-                    src="../icons/trash.svg"
+                  <label for="floatingTitle">Title</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <textarea
+                    type="text"
+                    rows="5"
+                    class="form-control rounded-4"
+                    id="floatingDescription"
+                    placeholder="Password"
+                  ></textarea>
+                  <label for="floatingDescription">Description</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                  <input
+                    type="date"
+                    class="form-control rounded-4"
+                    id="floatingDate"
+                    placeholder="Password"
                   />
-                </a>
-              </div>
+                  <label for="floatingDate">Due Date</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input high-priority"
+                      type="checkbox"
+                      value=""
+                      id="highPriorityCheck"
+                    />
+                    <label class="form-check-label" for="highPriorityCheck"
+                      >High Priority</label
+                    >
+                  </div>
+                </div>
+                <div class="form-floating mb-3">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input medium-priority"
+                      type="checkbox"
+                      value=""
+                      id="mediumPriorityCheck"
+                    />
+                    <label class="form-check-label" for="mediumPriorityCheck"
+                      >Medium Priority</label
+                    >
+                  </div>
+                </div>
+                <div class="form-floating mb-3">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input low-priority"
+                      type="checkbox"
+                      value=""
+                      id="lowPriorityCheck"
+                    />
+                    <label class="form-check-label" for="lowPriorityCheck"
+                      >Low Priority</label
+                    >
+                  </div>
+                </div>
+                <button
+                  class="w-100 mb-2 btn rounded-4 btn-primary"
+                  type="submit"
+                >
+                  Save Changes
+                </button>
+                <button
+                  class="w-100 mb-2 btn rounded-4 btn-secondary"
+                  type="submit"
+                >
+                  Cancel
+                </button>
+              </form>
             </div>
-            <div class="row m-4 p-2 bg-white rounded-3 border-bottom">
-              <div
-                class="col-md-1 py-1 d-flex justify-content-md-end justify-content-center"
-              >
-                <input type="checkbox" />
-              </div>
-              <div
-                class="col-md-7 d-flex align-items-center justify-content-md-start justify-content-center"
-              >
-                Title
-              </div>
-              <div
-                class="col-md-2 d-flex align-items-center justify-content-md-start justify-content-center"
-              >
-                Date
-              </div>
-              <div
-                class="col-md-2 d-flex align-items-center justify-md-start justify-content-center"
-              >
-                <a href="#" class="nav-link link-dark">
-                  <img
-                    class=""
-                    width="16"
-                    height="16"
-                    src="../icons/trash.svg"
-                  />
-                </a>
-              </div>
-            </div>
+
+            <!-- ADD NEW TASK-->
+            <!-- ADD NEW TASK-->
+            <!-- ADD NEW TASK-->
             <div
               class="row m-4 p-2 bg-white bg-opacity-100 rounded-3 border-bottom"
             >
@@ -349,12 +384,13 @@
                 <label for="floatingTitle">Title</label>
               </div>
               <div class="form-floating mb-3">
-                <input
+                <textarea
                   type="text"
+                  rows="5"
                   class="form-control rounded-4"
                   id="floatingDescription"
                   placeholder="Password"
-                />
+                ></textarea>
                 <label for="floatingDescription">Description</label>
               </div>
 

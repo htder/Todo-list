@@ -8,6 +8,12 @@ body {
 }
 
 .todo-edit {
+  display: block;
+  /* display: none; */
+}
+
+.todo-details {
+  /* display: block; */
   display: none;
 }
 

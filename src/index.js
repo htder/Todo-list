@@ -1,8 +1,8 @@
 // Todo List Item needs a:
+// - project belongs to
 // - title
 // - description
 // - due date
-// - priority
 // - completed check box
 // - red, orange or green for different priorities
 

@@ -1,3 +1,19 @@
+.high-priority {
+  border: 2px solid red;
+}
+
+.medium-priority {
+  border: 2px solid orange;
+}
+
+.low-priority {
+  border: 2px solid green;
+}
+
+.project-div {
+  border: 1px solid rgba(92, 92, 92, 0.281);
+  border-radius: 4px;
+}
 body {
   min-height: 100vh;
   min-height: -webkit-fill-available;

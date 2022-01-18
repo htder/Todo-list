@@ -13,8 +13,8 @@ body {
 }
 
 .todo-details {
-  /* display: block; */
-  display: none;
+  display: block;
+  /* display: none; */
 }
 
 .todo-item-container {

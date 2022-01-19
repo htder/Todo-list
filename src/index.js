@@ -43,7 +43,7 @@
 // // adding new todo task modal when add a new project is pressed
 // // decide on how data for tasks is stored
 // // submitting project modal adds a new project - how is it stored?
-// submitting todo task modal adds a new task - how is it stored?
+// // submitting todo task modal adds a new task - how is it stored?
 // add event listeners to tasks
 // show details slider when down arrow is pressed
 // change arrow icon when details are showing and when they are not
@@ -62,15 +62,50 @@ import { TodoTask } from "./task.js";
 import { Project } from "./project.js";
 
 const model = {
-  tasks: [],
+  tasks: [
+    TodoTask(
+      "Hello World",
+      "one two three",
+      "2022-01-21",
+      false,
+      "high",
+      "All"
+    ),
+    TodoTask(
+      "World Hello",
+      "one two three",
+      "2022-02-01",
+      false,
+      "low",
+      "Project 2"
+    ),
+    TodoTask(
+      "One One One",
+      "one two three",
+      "2022-09-17",
+      false,
+      "middle",
+      "Project 2"
+    ),
+    TodoTask(
+      "Two Two Two",
+      "one two three",
+      "2022-01-09",
+      false,
+      "high",
+      "Project 3"
+    ),
+    TodoTask(
+      "Three Three Three",
+      "one two three",
+      "2022-12-25",
+      false,
+      "high",
+      "All"
+    ),
+  ],
   projects: [Project("All"), Project("Project 2"), Project("Project 3")],
 };
-
-// const task = TodoTask("hello", "world", "today", "no", "yes", "work");
-// console.log(task);
-// console.log(task.due());
-// const project = Project("completed todo");
-// console.log(project);
 
 const menuController = (function () {
   const sidebar = document.querySelector(".sidebar");
@@ -163,6 +198,7 @@ const projectModalValidation = (function () {
 const projectMenuView = (function () {
   const projectMenu = document.querySelector(".project-menu");
   const formProjectList = document.querySelector(".form-project-selector");
+
   const addProjectToView = (project) => {
     projectMenu.appendChild(createProjectComponent(project));
   };
@@ -231,9 +267,9 @@ const todoModal = (function () {
     if (isFormValid) {
       // create todo
       const newTodo = TodoTask(
-        title,
-        description,
-        dueDate,
+        title.value,
+        description.value,
+        dueDate.value,
         false,
         priority,
         project
@@ -241,7 +277,7 @@ const todoModal = (function () {
       // push todo to storage
       model.tasks.push(newTodo);
       // render todo
-      //   projectMenuView.addProjectToView(newProject);
+      todoView.addTodoToView(newTodo);
       // clear form
       todoModalValidation.clearForm(form);
       // close modal
@@ -349,4 +385,75 @@ const todoModalValidation = (function () {
   return { checkTitle, checkDescription, checkDate, clearForm };
 })();
 
+const todoView = (function () {
+  const todoContainer = document.querySelector(".todo-container");
+
+  const addTodoToView = (todo) => {
+    const firstChild = todoContainer.firstElementChild;
+    firstChild.insertAdjacentElement("beforebegin", createTodoComponent(todo));
+  };
+
+  const createTodoComponent = (todo) => {
+    const html = `
+    <div
+    class="col-md-1 py-1 d-flex justify-content-md-end justify-content-center"
+  >
+    <input type="checkbox" />
+  </div>
+  <div
+    class="col-md-6 d-flex align-items-center justify-content-md-start justify-content-center"
+  >
+    ${todo.title}
+  </div>
+  <div
+    class="col-md-1 d-flex align-items-center justify-md-start justify-content-center"
+  >
+    <a href="#" class="nav-link link-dark">
+      <img
+        class=""
+        width="16"
+        height="16"
+        src="../icons/caret-down.svg"
+      />
+    </a>
+  </div>
+  <div
+    class="col-md-2 d-flex align-items-center justify-content-md-start justify-content-center"
+  >
+    ${todo.dueDate}
+  </div>
+  <div
+    class="col-md-1 d-flex align-items-center justify-md-start justify-content-center"
+  >
+    <a href="#" class="nav-link link-dark">
+      <img
+        class=""
+        width="16"
+        height="16"
+        src="../icons/pencil-square.svg"
+      />
+    </a>
+  </div>
+  <div
+    class="col-md-1 d-flex align-items-center justify-md-start justify-content-center"
+  >
+    <a href="#" class="nav-link link-dark">
+      <img
+        class=""
+        width="16"
+        height="16"
+        src="../icons/trash.svg"
+      />
+    </a>
+  </div>`;
+    const newElement = document.createElement("div");
+    newElement.classList = "row m-4 p-2 bg-white rounded-3 border-bottom";
+    newElement.innerHTML = html;
+    return newElement;
+  };
+
+  return { addTodoToView };
+})();
+
 model.projects.forEach((project) => projectMenuView.addProjectToView(project));
+model.tasks.forEach((task) => todoView.addTodoToView(task));

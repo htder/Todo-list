@@ -12,6 +12,11 @@ small {
   color: #ff4d4d;
 }
 
+.task-arrow-image-down,
+.task-arrow-image-up {
+  cursor: pointer;
+}
+
 .header-text {
   text-align: center;
 }

@@ -44,12 +44,14 @@
 // // decide on how data for tasks is stored
 // // submitting project modal adds a new project - how is it stored?
 // // submitting todo task modal adds a new task - how is it stored?
-// add event listeners to tasks
-// show details slider when down arrow is pressed
-// change arrow icon when details are showing and when they are not
+// // add event listeners to tasks
+// // show details slider when down arrow is pressed
+// // change arrow icon when details are showing and when they are not
+// // completing task - how does it interact with data
+//
+// strike through the title when the task is complete
 // show edit slider when edit is pressed
 // showing task priority colour as the left border colour of the task
-// completing task - how does it interact with data
 // strike through the title when the task is complete
 // deleteing task - how does it interact with data
 // populate the today and this week views with the correct tasks
@@ -74,7 +76,7 @@ const model = {
     ),
     TodoTask(
       "One One One",
-      "one two three",
+      "One Hello",
       "2022-09-17",
       true,
       "middle",
@@ -82,7 +84,7 @@ const model = {
     ),
     TodoTask(
       "Two Two Two",
-      "one two three",
+      "Two Hello",
       "2022-01-09",
       false,
       "high",
@@ -90,7 +92,7 @@ const model = {
     ),
     TodoTask(
       "Three Three Three",
-      "one two three",
+      "Three Hello",
       "2022-12-25",
       false,
       "high",
@@ -401,18 +403,16 @@ const todoView = (function () {
   >
     ${todo.title}
   </div>
-  <div
-    class="col-md-1 d-flex align-items-center justify-md-start justify-content-center"
-  >
-    <a href="#" class="nav-link link-dark">
-      <img
-        class=""
-        width="16"
-        height="16"
-        src="../icons/caret-down.svg"
-      />
-    </a>
-  </div>
+    <div
+        class="col-md-1 d-flex align-items-center justify-md-start justify-content-center task-arrow"
+         >
+        <img
+         class="task-arrow-image-down"
+         width="16"
+         height="16"
+         src="../icons/caret-down.svg"
+         />
+    </div>
   <div
     class="col-md-2 d-flex align-items-center justify-content-md-start justify-content-center"
   >
@@ -452,10 +452,14 @@ const todoView = (function () {
 })();
 
 const tasksListener = (function () {
-  const todoContainer = document.querySelector(".todo-container");
-  todoContainer.addEventListener("click", (event) => {
+  const todoMainContainer = document.querySelector(".todo-main-container");
+  //   const todoContainer = document.querySelector(".todo-container");
+
+  todoMainContainer.addEventListener("click", (event) => {
     const checkboxContainer = event.target.classList.contains("task-checkbox");
-    const arrowContainer = event.target.classList.contains("task-arrow");
+    const arrowContainer =
+      event.target.classList.contains("task-arrow-image-down") ||
+      event.target.classList.contains("task-arrow-image-up");
     const editContainer = event.target.classList.contains("task-edit");
     const deleteContainer = event.target.classList.contains("task-delete");
 
@@ -470,8 +474,79 @@ const tasksListener = (function () {
       console.log(task);
       task[0].completed = !task[0].completed;
     }
-    console.log(model.tasks);
+
+    if (arrowContainer) {
+      let title;
+      let date;
+      let div;
+      let arrow;
+
+      if (event.target.classList.contains("task-arrow-image-down")) {
+        const row = Array.from(event.target.parentNode.parentNode.childNodes);
+        let arrowImageDiv = event.target.parentNode;
+        div = event.target.parentNode.parentNode;
+        title = row[3].textContent.trim();
+        date = row[7].textContent.trim();
+        arrowImageDiv.innerHTML = upArrowHtml();
+
+        const task = model.tasks.filter(
+          (task) => task.title === title && task.dueDate === date
+        );
+        const descDiv = createDescriptionDiv(task);
+        div.insertAdjacentElement("afterend", descDiv);
+      }
+
+      if (event.target.classList.contains("task-arrow-image-up")) {
+        const row = Array.from(event.target.parentNode.parentNode.childNodes);
+        let arrowImageDiv = event.target.parentNode;
+        div = event.target.parentNode.parentNode;
+        title = row[3].textContent.trim();
+        date = row[7].textContent.trim();
+        arrowImageDiv.innerHTML = downArrowHtml();
+
+        div.nextElementSibling.remove();
+      }
+    }
   });
+
+  const upArrowHtml = () => {
+    const html = `
+    <img
+        class="task-arrow-image-up"
+        width="16"
+        height="16"
+        src="../icons/caret-up.svg"
+    />`;
+    return html;
+  };
+
+  const downArrowHtml = () => {
+    const html = `
+    <img
+        class="task-arrow-image-down"
+        width="16"
+        height="16"
+        src="../icons/caret-down.svg"
+    />`;
+    return html;
+  };
+
+  const createDescriptionDiv = (task) => {
+    const html = `
+    <div class="container-fluid py-1">
+      <h6 class="fw-bold">Description</h6>
+      <p class="">
+      ${task[0].description}
+      </p>
+  </div>`;
+
+    const detailsDiv = document.createElement("div");
+    detailsDiv.classList =
+      "modal-body mx-5 my-3 bg-light rounded-3 border border-secondary p-3 rounded-3 description-div";
+    detailsDiv.innerHTML = html;
+    return detailsDiv;
+  };
+
   return {};
 })();
 

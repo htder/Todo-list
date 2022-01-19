@@ -23,7 +23,7 @@
     <!-- SIDEBAR -->
     <div class="container-fluid">
       <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light sidebar">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
           <div
             class="align-items-center align-items-sm-start px-3 pt-2 link-dark"
           >
@@ -34,7 +34,9 @@
               <span class="fs-5 d-none d-sm-inline">Menu</span>
             </a>
             <hr />
-            <ul class="nav nav-pills flex-column mb-sm-auto mb-0 list-unstyled">
+            <ul
+              class="nav nav-pills flex-column mb-sm-auto mb-0 list-unstyled sidebar"
+            >
               <li class="nav-item home active m-1">
                 <a
                   href="#"
@@ -92,8 +94,9 @@
                     src="../icons/person-circle.svg"
                   /><span class="ms-1 d-none d-sm-inline">Projects</span>
                 </a>
-                <ul class="flex-column list-unstyled">
-                  <li class="nav-item project1 m-1">
+                <ul class="flex-column list-unstyled project-menu">
+                  <!-- Old hardcoded html sidebar  -->
+                  <!-- <li class="nav-item m-1">
                     <a href="#" class="nav-link menu-button link-dark rounded">
                       <img
                         class="bi me-2"
@@ -102,27 +105,7 @@
                         src="../icons/arrow-right-short.svg"
                       /><span class="d-none d-sm-inline">Project 1</span></a
                     >
-                  </li>
-                  <li class="nav-item project2 m-1">
-                    <a href="#" class="nav-link menu-button link-dark rounded">
-                      <img
-                        class="bi me-2"
-                        width="16"
-                        height="16"
-                        src="../icons/arrow-right-short.svg"
-                      /><span class="d-none d-sm-inline">Project 2</span></a
-                    >
-                  </li>
-                  <li class="nav-item project3 m-1">
-                    <a href="#" class="nav-link menu-button link-dark rounded">
-                      <img
-                        class="bi me-2"
-                        width="16"
-                        height="16"
-                        src="../icons/arrow-right-short.svg"
-                      /><span class="d-none d-sm-inline">Project 3</span></a
-                    >
-                  </li>
+                  </li> -->
                 </ul>
               </li>
             </ul>
@@ -404,10 +387,11 @@
           </div>
 
           <div class="modal-body p-5 pt-0">
-            <form class="">
+            <form class="" id="new-todo-form">
               <div class="form-floating mb-3">
                 <input
                   type="text"
+                  name="title"
                   class="form-control rounded-4"
                   id="floatingTitle"
                   placeholder="name@example.com"
@@ -417,6 +401,7 @@
               <div class="form-floating mb-3">
                 <textarea
                   type="text"
+                  name="description"
                   rows="5"
                   class="form-control rounded-4"
                   id="floatingDescription"
@@ -427,6 +412,7 @@
 
               <div class="form-floating mb-3">
                 <input
+                  name="dueDate"
                   type="date"
                   class="form-control rounded-4"
                   id="floatingDate"
@@ -434,72 +420,51 @@
                 />
                 <label for="floatingDate">Due Date</label>
               </div>
-              <div class="form-floating mb-3">
-                <div class="dropdown">
-                  <button
-                    class="w-100 mb-2 btn btn-lg rounded-4 btn dropdown-toggle project-div"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-mdb-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <small>Project</small>
-                  </button>
-                  <ul
-                    class="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton"
-                  >
-                    <li><a class="dropdown-item" href="#">Project 1</a></li>
-                    <li>
-                      <a class="dropdown-item" href="#">Project 2</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">Project 3</a>
-                    </li>
-                  </ul>
-                </div>
+              <div class="pb-3">
+                <select class="form-select form-project-selector">
+                  <option>Project 1</option>
+                  <option>Project 2</option>
+                </select>
               </div>
-              <div class="form-floating mb-3">
-                <div class="form-check">
-                  <input
-                    class="form-check-input high-priority"
-                    type="checkbox"
-                    value=""
-                    id="highPriorityCheck"
-                  />
-                  <label class="form-check-label" for="highPriorityCheck"
-                    >High Priority</label
-                  >
-                </div>
+              <div class="form-check m-1 py-1">
+                <input
+                  type="radio"
+                  class="form-check-input high-priority"
+                  id="radio1"
+                  name="optradio"
+                  value="option1"
+                  checked
+                />
+                <label class="form-check-label" for="radio1"
+                  >High Priority</label
+                >
               </div>
-              <div class="form-floating mb-3">
-                <div class="form-check border-3">
-                  <input
-                    class="form-check-input medium-priority"
-                    type="checkbox"
-                    value=""
-                    id="mediumPriorityCheck"
-                  />
-                  <label class="form-check-label" for="mediumPriorityCheck"
-                    >Medium Priority</label
-                  >
-                </div>
+              <div class="form-check m-1 py-1">
+                <input
+                  type="radio"
+                  class="form-check-input medium-priority"
+                  id="radio2"
+                  name="optradio"
+                  value="option2"
+                />
+                <label class="form-check-label" for="radio2"
+                  >Medium Priority</label
+                >
               </div>
-              <div class="form-floating mb-3">
-                <div class="form-check">
-                  <input
-                    class="form-check-input low-priority"
-                    type="checkbox"
-                    value=""
-                    id="lowPriorityCheck"
-                  />
-                  <label class="form-check-label" for="lowPriorityCheck"
-                    >Low Priority</label
-                  >
-                </div>
+              <div class="form-check m-1 py-1">
+                <input
+                  type="radio"
+                  class="form-check-input low-priority"
+                  id="radio3"
+                  name="optradio"
+                  value="option3"
+                />
+                <label class="form-check-label" for="radio3"
+                  >Low Priority</label
+                >
               </div>
               <button
-                class="w-100 mb-2 btn btn-lg rounded-4 btn-primary"
+                class="w-100 mb-2 btn btn-lg rounded-4 btn-primary todo-submit mt-3"
                 type="submit"
               >
                 Submit
@@ -536,9 +501,10 @@
           </div>
 
           <div class="modal-body p-5 pt-0">
-            <form class="">
+            <form id="new-project-form">
               <div class="form-floating mb-3">
                 <input
+                  name="title"
                   type="text"
                   class="form-control rounded-4"
                   id="floatingTitle"
@@ -546,17 +512,8 @@
                 />
                 <label for="floatingTitle">Title</label>
               </div>
-              <div class="form-floating mb-3">
-                <input
-                  type="text"
-                  class="form-control rounded-4"
-                  id="floatingDescription"
-                  placeholder="Password"
-                />
-                <label for="floatingDescription">Description</label>
-              </div>
               <button
-                class="w-100 mb-2 btn btn-lg rounded-4 btn-primary"
+                class="w-100 mb-2 btn btn-lg rounded-4 btn-primary project-submit"
                 type="submit"
               >
                 Submit

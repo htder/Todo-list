@@ -30,7 +30,7 @@ div.sidebar {
 .new-project-button:hover {
   border-radius: 0.3rem;
   cursor: pointer;
-  background-color: rgb(161, 183, 255);
+  background-color: #d7e7ff;
 }
 
 .todo-new-task {

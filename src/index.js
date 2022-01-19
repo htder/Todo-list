@@ -41,7 +41,7 @@
 // // changing active button on the menu
 // // adding project modal when new project is pressed
 // // adding new todo task modal when add a new project is pressed
-// decide on how data for tasks is stored
+// // decide on how data for tasks is stored
 // submitting project modal adds a new project - how is it stored?
 // submitting todo task modal adds a new task - how is it stored?
 // add event listeners to tasks
@@ -58,41 +58,12 @@
 //
 //
 
+import { TodoTask } from "./task.js";
+import { Project } from "./project.js";
+
 const model = {
   tasks: [],
   projects: [],
-};
-
-const TodoTask = function (
-  title,
-  description,
-  dueDate,
-  completed,
-  priority,
-  project
-) {
-  const task = {};
-
-  task.title = title;
-  task.description = description;
-  task.dueDate = dueDate;
-  task.completed = completed;
-  task.priority = priority;
-  task.project = project;
-
-  task.due = function () {
-    return `${title} due: ${dueDate}`;
-  };
-
-  return task;
-};
-
-const Project = function (title) {
-  const project = {};
-
-  project.title = title;
-
-  return project;
 };
 
 // const task = TodoTask("hello", "world", "today", "no", "yes", "work");

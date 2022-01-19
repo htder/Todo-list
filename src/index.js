@@ -63,14 +63,7 @@ import { Project } from "./project.js";
 
 const model = {
   tasks: [
-    TodoTask(
-      "Hello World",
-      "one two three",
-      "2022-01-21",
-      false,
-      "high",
-      "All"
-    ),
+    TodoTask("Hello World", "one two three", "2022-01-21", true, "high", "All"),
     TodoTask(
       "World Hello",
       "one two three",
@@ -83,7 +76,7 @@ const model = {
       "One One One",
       "one two three",
       "2022-09-17",
-      false,
+      true,
       "middle",
       "Project 2"
     ),
@@ -111,6 +104,7 @@ const menuController = (function () {
   const sidebar = document.querySelector(".sidebar");
   sidebar.addEventListener("click", (event) => {
     removeActive();
+    if (event.target.closest("a") === null) return;
     event.target.closest("a").classList.add("active");
   });
 })();
@@ -398,7 +392,9 @@ const todoView = (function () {
     <div
     class="col-md-1 py-1 d-flex justify-content-md-end justify-content-center"
   >
-    <input type="checkbox" />
+    <input type="checkbox" class="task-checkbox" ${
+      todo.completed ? "checked" : ""
+    }/>
   </div>
   <div
     class="col-md-6 d-flex align-items-center justify-content-md-start justify-content-center"
@@ -453,6 +449,30 @@ const todoView = (function () {
   };
 
   return { addTodoToView };
+})();
+
+const tasksListener = (function () {
+  const todoContainer = document.querySelector(".todo-container");
+  todoContainer.addEventListener("click", (event) => {
+    const checkboxContainer = event.target.classList.contains("task-checkbox");
+    const arrowContainer = event.target.classList.contains("task-arrow");
+    const editContainer = event.target.classList.contains("task-edit");
+    const deleteContainer = event.target.classList.contains("task-delete");
+
+    if (checkboxContainer) {
+      const row = Array.from(event.target.parentNode.parentNode.childNodes);
+      const title = row[3].textContent.trim();
+      const date = row[7].textContent.trim();
+
+      const task = model.tasks.filter(
+        (task) => task.title === title && task.dueDate === date
+      );
+      console.log(task);
+      task[0].completed = !task[0].completed;
+    }
+    console.log(model.tasks);
+  });
+  return {};
 })();
 
 model.projects.forEach((project) => projectMenuView.addProjectToView(project));

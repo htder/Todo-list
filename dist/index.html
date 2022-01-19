@@ -14,22 +14,6 @@
     <script defer src="main.js"></script>
   </head>
   <body>
-    <!-- HEADER -->
-    <!-- HEADER -->
-    <!-- HEADER -->
-    <!-- HEADER -->
-    <!-- HEADER -->
-    <header
-      class="d-flex flex-wrap justify-content-center px-4 py-3 border-bottom border-secondary bg-light"
-    >
-      <a
-        href="/"
-        class="d-flex align-items-center text-dark text-decoration-none"
-      >
-        <span class="fs-4">Toodoo List </span>
-      </a>
-    </header>
-
     <!-- SIDEBAR -->
     <!-- SIDEBAR -->
     <!-- SIDEBAR -->
@@ -39,9 +23,9 @@
     <!-- SIDEBAR -->
     <div class="container-fluid">
       <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light sidebar">
           <div
-            class="align-items-center align-items-sm-start px-3 pt-2 link-dark min-vh-100"
+            class="align-items-center align-items-sm-start px-3 pt-2 link-dark"
           >
             <a
               href="/"
@@ -165,218 +149,234 @@
         <!--- TODO LIST MAIN -->
         <!--- TODO LIST MAIN -->
         <!--- TODO LIST MAIN -->
-        <div class="col-9 col-sm-8 col-md-9 col-xl-10 todo-main-container">
-          <div class="m-4 py-1 bg-light border border-secondary rounded-3">
-            <div class="row m-4 p-2 bg-white rounded-3 border-bottom">
-              <div
-                class="col-md-1 py-1 d-flex justify-content-md-end justify-content-center"
-              >
-                <input type="checkbox" />
-              </div>
-              <div
-                class="col-md-6 d-flex align-items-center justify-content-md-start justify-content-center"
-              >
-                Title
-              </div>
-              <div
-                class="col-md-1 d-flex align-items-center justify-md-start justify-content-center"
-              >
-                <a href="#" class="nav-link link-dark">
-                  <img
-                    class=""
-                    width="16"
-                    height="16"
-                    src="../icons/caret-down.svg"
-                  />
-                </a>
-              </div>
-              <div
-                class="col-md-2 d-flex align-items-center justify-content-md-start justify-content-center"
-              >
-                Date
-              </div>
-              <div
-                class="col-md-1 d-flex align-items-center justify-md-start justify-content-center"
-              >
-                <a href="#" class="nav-link link-dark">
-                  <img
-                    class=""
-                    width="16"
-                    height="16"
-                    src="../icons/pencil-square.svg"
-                  />
-                </a>
-              </div>
-              <div
-                class="col-md-1 d-flex align-items-center justify-md-start justify-content-center"
-              >
-                <a href="#" class="nav-link link-dark">
-                  <img
-                    class=""
-                    width="16"
-                    height="16"
-                    src="../icons/trash.svg"
-                  />
-                </a>
-              </div>
-            </div>
-
-            <!-- SHOW DETAILS-->
-            <!-- SHOW DETAILS-->
-            <!-- SHOW DETAILS-->
-            <div
-              class="modal-body mx-5 my-3 bg-light rounded-3 border border-secondary p-3 rounded-3 todo-details"
+        <div class="col-9 col-sm-8 col-md-9 col-xl-10 todo-main-container pt-2">
+          <div class="flex-wrapper">
+            <!-- HEADER -->
+            <!-- HEADER -->
+            <!-- HEADER -->
+            <!-- HEADER -->
+            <!-- HEADER -->
+            <header
+              class="d-flex justify-content-center align-items-center pb-1 pt-1 mb-md-0"
             >
-              <div class="container-fluid py-1">
-                <h6 class="fw-bold">Details</h6>
-                <p class="">
-                  Details about the task above, dont forget to change the arrow
-                  to and "up arrow" when this is showing, and then back to a
-                  "down arrow" once this is closed
-                </p>
-              </div>
-            </div>
-
-            <!-- EDIT TASK-->
-            <!-- EDIT TASK-->
-            <!-- EDIT TASK-->
-
-            <div class="modal-body p-5 pt-0 todo-edit">
-              <form class="border border-secondary p-3 rounded-3">
-                <div class="form-floating mb-3">
-                  <input
-                    type="text"
-                    class="form-control rounded-4"
-                    id="floatingTitle"
-                    placeholder="name@example.com"
-                  />
-                  <label for="floatingTitle">Title</label>
-                </div>
-                <div class="form-floating mb-3">
-                  <textarea
-                    type="text"
-                    rows="4"
-                    class="form-control rounded-4"
-                    id="floatingDescription"
-                    placeholder="Password"
-                  ></textarea>
-                  <label for="floatingDescription">Description</label>
-                </div>
-
-                <div class="form-floating mb-3">
-                  <input
-                    type="date"
-                    class="form-control rounded-4"
-                    id="floatingDate"
-                    placeholder="Password"
-                  />
-                  <label for="floatingDate">Due Date</label>
-                </div>
-                <div class="form-floating mb-3">
-                  <div class="form-check">
-                    <input
-                      class="form-check-input high-priority"
-                      type="checkbox"
-                      value=""
-                      id="highPriorityCheck"
-                    />
-                    <label class="form-check-label" for="highPriorityCheck"
-                      >High Priority</label
-                    >
-                  </div>
-                </div>
-                <div class="form-floating mb-3">
-                  <div class="form-check">
-                    <input
-                      class="form-check-input medium-priority"
-                      type="checkbox"
-                      value=""
-                      id="mediumPriorityCheck"
-                    />
-                    <label class="form-check-label" for="mediumPriorityCheck"
-                      >Medium Priority</label
-                    >
-                  </div>
-                </div>
-                <div class="form-floating mb-3">
-                  <div class="form-check">
-                    <input
-                      class="form-check-input low-priority"
-                      type="checkbox"
-                      value=""
-                      id="lowPriorityCheck"
-                    />
-                    <label class="form-check-label" for="lowPriorityCheck"
-                      >Low Priority</label
-                    >
-                  </div>
-                </div>
-                <button
-                  class="w-100 mb-2 btn rounded-4 btn-primary"
-                  type="submit"
-                >
-                  Save Changes
-                </button>
-                <button
-                  class="w-100 mb-2 btn rounded-4 btn-secondary"
-                  type="submit"
-                >
-                  Cancel
-                </button>
-              </form>
-            </div>
-
-            <!-- ADD NEW TASK-->
-            <!-- ADD NEW TASK-->
-            <!-- ADD NEW TASK-->
-            <div class="hover-todo-new-task">
-              <div class="row m-4 p-2 rounded todo-new-task" id="todo-hover">
+              <a
+                href="/"
+                class="d-flex align-items-center text-dark text-decoration-none"
+              >
+                <span class="fs-5 fw-bold">TOODOO LIST</span>
+              </a>
+            </header>
+            <hr />
+            <div class="m-4 py-1 bg-light border border-secondary rounded-3">
+              <div class="row m-4 p-2 bg-white rounded-3 border-bottom">
                 <div
-                  class="col-md-1 py-1 d-flex justify-content-md-end justify-content-center align-items-center"
+                  class="col-md-1 py-1 d-flex justify-content-md-end justify-content-center"
                 >
-                  <a>
+                  <input type="checkbox" />
+                </div>
+                <div
+                  class="col-md-6 d-flex align-items-center justify-content-md-start justify-content-center"
+                >
+                  Title
+                </div>
+                <div
+                  class="col-md-1 d-flex align-items-center justify-md-start justify-content-center"
+                >
+                  <a href="#" class="nav-link link-dark">
                     <img
                       class=""
                       width="16"
                       height="16"
-                      src="../icons/plus-circle.svg"
+                      src="../icons/caret-down.svg"
                     />
                   </a>
                 </div>
                 <div
-                  class="col-md-7 d-flex align-items-center justify-content-md-start justify-content-center"
+                  class="col-md-2 d-flex align-items-center justify-content-md-start justify-content-center"
                 >
-                  Add a new task!
+                  Date
+                </div>
+                <div
+                  class="col-md-1 d-flex align-items-center justify-md-start justify-content-center"
+                >
+                  <a href="#" class="nav-link link-dark">
+                    <img
+                      class=""
+                      width="16"
+                      height="16"
+                      src="../icons/pencil-square.svg"
+                    />
+                  </a>
+                </div>
+                <div
+                  class="col-md-1 d-flex align-items-center justify-md-start justify-content-center"
+                >
+                  <a href="#" class="nav-link link-dark">
+                    <img
+                      class=""
+                      width="16"
+                      height="16"
+                      src="../icons/trash.svg"
+                    />
+                  </a>
+                </div>
+              </div>
+
+              <!-- SHOW DETAILS-->
+              <!-- SHOW DETAILS-->
+              <!-- SHOW DETAILS-->
+              <div
+                class="modal-body mx-5 my-3 bg-light rounded-3 border border-secondary p-3 rounded-3 todo-details"
+              >
+                <div class="container-fluid py-1">
+                  <h6 class="fw-bold">Details</h6>
+                  <p class="">
+                    Details about the task above, dont forget to change the
+                    arrow to and "up arrow" when this is showing, and then back
+                    to a "down arrow" once this is closed
+                  </p>
+                </div>
+              </div>
+
+              <!-- EDIT TASK-->
+              <!-- EDIT TASK-->
+              <!-- EDIT TASK-->
+
+              <div class="modal-body p-5 pt-0 todo-edit">
+                <form class="border border-secondary p-3 rounded-3">
+                  <div class="form-floating mb-3">
+                    <input
+                      type="text"
+                      class="form-control rounded-4"
+                      id="floatingTitle"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingTitle">Title</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <textarea
+                      type="text"
+                      rows="4"
+                      class="form-control rounded-4"
+                      id="floatingDescription"
+                      placeholder="Password"
+                    ></textarea>
+                    <label for="floatingDescription">Description</label>
+                  </div>
+
+                  <div class="form-floating mb-3">
+                    <input
+                      type="date"
+                      class="form-control rounded-4"
+                      id="floatingDate"
+                      placeholder="Password"
+                    />
+                    <label for="floatingDate">Due Date</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input high-priority"
+                        type="checkbox"
+                        value=""
+                        id="highPriorityCheck"
+                      />
+                      <label class="form-check-label" for="highPriorityCheck"
+                        >High Priority</label
+                      >
+                    </div>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input medium-priority"
+                        type="checkbox"
+                        value=""
+                        id="mediumPriorityCheck"
+                      />
+                      <label class="form-check-label" for="mediumPriorityCheck"
+                        >Medium Priority</label
+                      >
+                    </div>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input low-priority"
+                        type="checkbox"
+                        value=""
+                        id="lowPriorityCheck"
+                      />
+                      <label class="form-check-label" for="lowPriorityCheck"
+                        >Low Priority</label
+                      >
+                    </div>
+                  </div>
+                  <button
+                    class="w-100 mb-2 btn rounded-4 btn-primary"
+                    type="submit"
+                  >
+                    Save Changes
+                  </button>
+                  <button
+                    class="w-100 mb-2 btn rounded-4 btn-secondary"
+                    type="submit"
+                  >
+                    Cancel
+                  </button>
+                </form>
+              </div>
+
+              <!-- ADD NEW TASK-->
+              <!-- ADD NEW TASK-->
+              <!-- ADD NEW TASK-->
+              <div class="hover-todo-new-task">
+                <div class="row m-4 p-2 rounded todo-new-task" id="todo-hover">
+                  <div
+                    class="col-md-1 py-1 d-flex justify-content-md-end justify-content-center align-items-center"
+                  >
+                    <a>
+                      <img
+                        class=""
+                        width="16"
+                        height="16"
+                        src="../icons/plus-circle.svg"
+                      />
+                    </a>
+                  </div>
+                  <div
+                    class="col-md-7 d-flex align-items-center justify-content-md-start justify-content-center"
+                  >
+                    Add a new task!
+                  </div>
                 </div>
               </div>
             </div>
+            <!-- FOOTER -->
+            <!-- FOOTER -->
+            <!-- FOOTER -->
+            <!-- FOOTER -->
+            <footer
+              class="d-flex flex-wrap justify-content-center px-4 py-3 footer"
+            >
+              <hr />
+              <div class="justify-content-center align-items-center">
+                <a>
+                  <span>TooDoo app</span>
+                  <img
+                    class=""
+                    width="40"
+                    height="32"
+                    src="../icons/clipboard-check.svg"
+                  />
+                </a>
+              </div>
+            </footer>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- FOOTER -->
-    <!-- FOOTER -->
-    <!-- FOOTER -->
-    <!-- FOOTER -->
-    <div>
-      <footer
-        class="d-flex flex-wrap justify-content-center px-4 py-3 border-top border-secondary bg-light"
-      >
-        <div class="justify-content-center align-items-center">
-          <a>
-            <span>TooDoo app</span>
-            <img
-              class=""
-              width="40"
-              height="32"
-              src="../icons/clipboard-check.svg"
-            />
-          </a>
-        </div>
-      </footer>
-    </div>
-
     <!-- TASK MODAL-->
     <!-- TASK MODAL-->
     <!-- TASK MODAL-->
@@ -385,7 +385,6 @@
     <!-- TASK MODAL-->
     <!-- TASK MODAL-->
     <!-- TASK MODAL-->
-
     <div
       class="modal modal-signin bg-secondary py-5 task-modal hide"
       tabindex="-1"
@@ -395,7 +394,6 @@
       <div class="modal-dialog task-model-content" role="document">
         <div class="modal-content rounded-5 shadow">
           <div class="modal-header p-5 pb-4 border-bottom-0">
-            <!-- <h5 class="modal-title">Modal title</h5> -->
             <h2 class="fw-bold mb-0">Add a new task!</h2>
             <button
               type="button"

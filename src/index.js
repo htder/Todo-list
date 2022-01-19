@@ -102,11 +102,11 @@ const projectModal = (function () {
 
   submit.addEventListener("click", (event) => {
     event.preventDefault();
-    const title = form["title"].value;
+    const title = form["title"];
     const titleValid = projectModalValidation.checkTitle(title);
     if (titleValid) {
       // create project
-      const newProject = Project(title);
+      const newProject = Project(title.value);
       // push project to storage
       model.projects.push(newProject);
       // render project
@@ -135,17 +135,20 @@ const projectModalValidation = (function () {
   };
 
   const showError = (input, message) => {
-    const formField = input.parentElement;
-    const error = formField.querySelector("small");
-    error.textContent = message;
+    input.classList.add("error");
+  };
+
+  const showSuccess = (input) => {
+    input.classList.remove("error");
   };
 
   const checkTitle = (element) => {
     let valid = false;
-    const title = element.trim();
+    const title = element.value.trim();
     if (isRequired(title)) {
       showError(element, "Title cannot be empty.");
     } else {
+      showSuccess(element);
       valid = true;
     }
     return valid;
@@ -208,26 +211,41 @@ const todoModal = (function () {
 
   submit.addEventListener("click", (event) => {
     event.preventDefault();
-    console.log(form);
-    console.log(submit);
+    const formProjectSelect = document.querySelector(".form-project-selector");
+
     // get form elements
-    const title = form["title"].value;
-    const description = form["description"].value;
-    const dueDate = form["dueDate"].value;
+    const title = form["title"];
+    const description = form["description"];
+    const dueDate = form["dueDate"];
+    const project =
+      formProjectSelect.options[formProjectSelect.selectedIndex].value;
+    const priority = form["optradio"].value;
 
     // validate form elements
-    const titleValid = projectModalValidation.checkTitle(title);
-    if (titleValid) {
+    let titleValid = todoModalValidation.checkTitle(title),
+      descriptionValid = todoModalValidation.checkDescription(description),
+      dateValid = todoModalValidation.checkDate(dueDate);
+
+    let isFormValid = titleValid && descriptionValid && dateValid;
+    // const titleValid = projectModalValidation.checkTitle(title);
+    if (isFormValid) {
       // create todo
-      const newProject = Project(title);
+      const newTodo = TodoTask(
+        title,
+        description,
+        dueDate,
+        false,
+        priority,
+        project
+      );
       // push todo to storage
-      model.projects.push(newProject);
+      model.tasks.push(newTodo);
       // render todo
-      projectMenuView.addProjectToView(newProject);
+      //   projectMenuView.addProjectToView(newProject);
       // clear form
-      projectModalValidation.clearForm(form);
+      todoModalValidation.clearForm(form);
       // close modal
-      hideModal();
+      close();
     }
   });
 
@@ -243,7 +261,92 @@ const todoModal = (function () {
 })();
 
 const todoModalValidation = (function () {
-  return {};
+  const isRequired = (value) => {
+    return value === "";
+  };
+
+  const notInFuture = (value) => {
+    const [year, month, day] = value.split("-");
+    const currentDate = new Date();
+    const cDay = currentDate.getDate();
+    const cMonth = currentDate.getMonth() + 1;
+    const cYear = currentDate.getFullYear();
+    return !(+year >= cYear && +month >= cMonth && +day >= cDay);
+  };
+
+  const showTitleError = (input, message) => {
+    const error = document.querySelector(".titleError");
+    error.textContent = message;
+  };
+
+  const showDescError = (input, message) => {
+    const error = document.querySelector(".descError");
+    error.textContent = message;
+  };
+  const showDateError = (input, message) => {
+    const error = document.querySelector(".dateError");
+    error.textContent = message;
+  };
+
+  const showTitleSuccess = (input, message) => {
+    const error = document.querySelector(".titleError");
+    error.textContent = "";
+  };
+
+  const showDescSuccess = (input, message) => {
+    const error = document.querySelector(".descError");
+    error.textContent = "";
+  };
+  const showDateSuccess = (input, message) => {
+    const error = document.querySelector(".dateError");
+    error.textContent = "";
+  };
+
+  const checkTitle = (element) => {
+    let valid = false;
+    const title = element.value.trim();
+    if (isRequired(title)) {
+      showTitleError(element, "Title cannot be empty.");
+    } else {
+      showTitleSuccess(element);
+      valid = true;
+    }
+    return valid;
+  };
+
+  const checkDescription = (element) => {
+    let valid = false;
+    const description = element.value.trim();
+    if (isRequired(description)) {
+      showDescError(element, "Description cannot be empty.");
+    } else {
+      showDescSuccess(element);
+      valid = true;
+    }
+    return valid;
+  };
+
+  const checkDate = (element) => {
+    let valid = false;
+    const dueDate = element.value.trim();
+    if (isRequired(dueDate)) {
+      showDateError(element, "Due date cannot be empty");
+    }
+    if (notInFuture(dueDate)) {
+      showDateError(element, "Due date must be in the future.");
+    } else {
+      showDateSuccess(element);
+      valid = true;
+    }
+    return valid;
+  };
+
+  const clearForm = (form) => {
+    form["title"].value = "";
+    form["description"].value = "";
+    form["dueDate"].value = "";
+  };
+  return { checkTitle, checkDescription, checkDate, clearForm };
 })();
 
 model.projects.forEach((project) => projectMenuView.addProjectToView(project));

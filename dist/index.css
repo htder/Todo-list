@@ -6,6 +6,12 @@ body {
   overflow-x: hidden;
 }
 
+small {
+  margin-top: 2px;
+  display: block;
+  color: #ff4d4d;
+}
+
 .header-text {
   text-align: center;
 }

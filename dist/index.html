@@ -22,7 +22,7 @@
     <!-- SIDEBAR -->
     <!-- SIDEBAR -->
     <div class="container-fluid">
-      <div class="row flex-nowrap">
+      <div class="row flex-nowrap min-vh-100">
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
           <div
             class="align-items-center align-items-sm-start px-3 pt-2 link-dark"
@@ -432,7 +432,7 @@
                   class="form-check-input high-priority"
                   id="radio1"
                   name="optradio"
-                  value="option1"
+                  value="high"
                   checked
                 />
                 <label class="form-check-label" for="radio1"
@@ -445,7 +445,7 @@
                   class="form-check-input medium-priority"
                   id="radio2"
                   name="optradio"
-                  value="option2"
+                  value="medium"
                 />
                 <label class="form-check-label" for="radio2"
                   >Medium Priority</label
@@ -457,7 +457,7 @@
                   class="form-check-input low-priority"
                   id="radio3"
                   name="optradio"
-                  value="option3"
+                  value="low"
                 />
                 <label class="form-check-label" for="radio3"
                   >Low Priority</label
@@ -469,6 +469,9 @@
               >
                 Submit
               </button>
+              <small class="titleError"></small>
+              <small class="descError"></small>
+              <small class="dateError"></small>
             </form>
           </div>
         </div>

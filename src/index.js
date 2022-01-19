@@ -55,3 +55,54 @@
 // populate the today and this week views with the correct tasks
 // populate each project with the correct tasks
 //
+//
+//
+
+const menuController = (function () {
+  const menuButtons = Array.from(document.querySelectorAll(".menu-button"));
+
+  menuButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      removeActive(menuButtons);
+      if (button === event.target || button.contains(event.target)) {
+        button.classList.add("active");
+      }
+    });
+  });
+})();
+
+function removeActive(buttons) {
+  buttons.forEach((button) => button.classList.remove("active"));
+}
+
+const projectModal = (function () {
+  const modal = document.querySelector(".project-modal");
+  const openModal = document.querySelector(".new-project-button");
+  const closeModal = document.querySelector(".project-modal-close");
+
+  openModal.addEventListener("click", () => {
+    modal.classList.remove("hide");
+    modal.classList.add("show");
+  });
+
+  closeModal.addEventListener("click", () => {
+    modal.classList.remove("show");
+    modal.classList.add("hide");
+  });
+})();
+
+const todoModal = (function () {
+  const modal = document.querySelector(".task-modal");
+  const openModal = document.querySelector(".todo-new-task");
+  const closeModal = document.querySelector(".todo-modal-close");
+
+  openModal.addEventListener("click", () => {
+    modal.classList.remove("hide");
+    modal.classList.add("show");
+  });
+
+  closeModal.addEventListener("click", () => {
+    modal.classList.remove("show");
+    modal.classList.add("hide");
+  });
+})();

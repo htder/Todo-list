@@ -51,10 +51,10 @@
             </a>
             <hr />
             <ul class="nav nav-pills flex-column mb-sm-auto mb-0 list-unstyled">
-              <li class="nav-item">
+              <li class="nav-item home active">
                 <a
                   href="#"
-                  class="nav-link active align-middle link-dark"
+                  class="nav-link menu-button active align-middle link-dark"
                   aria-current="page"
                 >
                   <img
@@ -68,10 +68,10 @@
                   >
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item today">
                 <a
                   href="#"
-                  class="nav-link align-middle link-dark"
+                  class="nav-link menu-button align-middle link-dark"
                   aria-current="page"
                 >
                   <img
@@ -83,10 +83,10 @@
                   <span class="ms-1 d-none d-sm-inline">Today</span>
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item week">
                 <a
                   href="#"
-                  class="nav-link align-middle link-dark"
+                  class="nav-link menu-button align-middle link-dark"
                   aria-current="page"
                 >
                   <img
@@ -109,8 +109,8 @@
                   /><span class="ms-1 d-none d-sm-inline">Projects</span>
                 </a>
                 <ul class="flex-column list-unstyled">
-                  <li class="w-100">
-                    <a href="#" class="nav-link link-dark rounded">
+                  <li class="w-100 nav-item project1">
+                    <a href="#" class="nav-link menu-button link-dark rounded">
                       <img
                         class="bi me-2"
                         width="16"
@@ -119,8 +119,8 @@
                       /><span class="d-none d-sm-inline">Project 1</span></a
                     >
                   </li>
-                  <li class="w-100">
-                    <a href="#" class="nav-link link-dark rounded">
+                  <li class="w-100 nav-item project2">
+                    <a href="#" class="nav-link menu-button link-dark rounded">
                       <img
                         class="bi me-2"
                         width="16"
@@ -129,8 +129,8 @@
                       /><span class="d-none d-sm-inline">Project 2</span></a
                     >
                   </li>
-                  <li class="w-100">
-                    <a href="#" class="nav-link link-dark rounded">
+                  <li class="w-100 nav-item project3">
+                    <a href="#" class="nav-link menu-button link-dark rounded">
                       <img
                         class="bi me-2"
                         width="16"
@@ -144,7 +144,7 @@
             </ul>
             <hr />
             <ul class="nav nav-pills flex-column mb-sm-auto mb-0 list-unstyled">
-              <li>
+              <li class="new-project-button">
                 <a href="#" class="nav-link align-middle link-dark">
                   <img
                     class="bi me-2"
@@ -330,7 +330,7 @@
             <!-- ADD NEW TASK-->
             <!-- ADD NEW TASK-->
             <div
-              class="row m-4 p-2 bg-white bg-opacity-100 rounded-3 border-bottom"
+              class="row m-4 p-2 bg-white bg-opacity-100 rounded-3 border-bottom todo-new-task"
             >
               <div
                 class="col-md-1 py-1 d-flex justify-content-md-end justify-content-center align-items-center"
@@ -387,7 +387,7 @@
     <!-- TASK MODAL-->
 
     <div
-      class="modal modal-signin bg-secondary py-5 task-modal"
+      class="modal modal-signin bg-secondary py-5 task-modal hide"
       tabindex="-1"
       role="dialog"
       id="task-modal"
@@ -399,7 +399,7 @@
             <h2 class="fw-bold mb-0">Add a new task!</h2>
             <button
               type="button"
-              class="btn-close"
+              class="btn-close todo-modal-close"
               data-bs-dismiss="modal"
               aria-label="Close"
             ></button>
@@ -520,7 +520,7 @@
     <!-- PROJECT MODAL-->
     <!-- PROJECT MODAL-->
     <div
-      class="modal modal-signin bg-secondary py-5 project-modal"
+      class="modal modal-signin bg-secondary py-5 project-modal hide"
       tabindex="-1"
       role="dialog"
       id="modalSignin"
@@ -531,7 +531,7 @@
             <h2 class="fw-bold mb-0">Add a new project!</h2>
             <button
               type="button"
-              class="btn-close"
+              class="btn-close project-modal-close"
               data-bs-dismiss="modal"
               aria-label="Close"
             ></button>

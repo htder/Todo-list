@@ -7,9 +7,15 @@ body {
   /* overflow-x: hidden; */
 }
 
-.task-modal {
-  /* display: block; */
+.show {
+  display: block;
+}
+
+.hide {
   display: none;
+}
+
+.task-modal {
   position: fixed;
   z-index: 1;
   left: 0;
@@ -20,8 +26,6 @@ body {
 }
 
 .project-modal {
-  /* display: block; */
-  display: none;
   position: fixed;
   z-index: 1;
   left: 0;

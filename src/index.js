@@ -101,8 +101,43 @@ const model = {
   projects: [Project("All"), Project("Project 2"), Project("Project 3")],
 };
 
+// const addNewTodo = (function () {
+//   const todoContainer = document.querySelector(".todo-container");
+
+//   const addNewTodoView = () => {
+//     const html = `
+//     <div class="row m-4 p-2 rounded todo-new-task" id="todo-hover">
+//       <div
+//         class="col-md-1 py-1 d-flex justify-content-md-end justify-content-center align-items-center"
+//       >
+//         <a>
+//           <img
+//             class=""
+//             width="16"
+//             height="16"
+//             src="../icons/plus-circle.svg"
+//           />
+//         </a>
+//       </div>
+//       <div
+//         class="col-md-7 d-flex align-items-center justify-content-md-start justify-content-center"
+//       >
+//         Add a new task!
+//       </div>
+//     </div>`;
+//     const newElement = document.createElement("div");
+//     newElement.classList = "hover-todo-new-task";
+//     newElement.innerHTML = html;
+//     return newElement;
+//   };
+//   return { addNewTodoView };
+// })();
+
+// addNewTodo.addNewTodoView();
+
 const menuController = (function () {
   const sidebar = document.querySelector(".sidebar");
+
   sidebar.addEventListener("click", (event) => {
     removeActive();
     if (event.target.closest("a") === null) return;
@@ -191,6 +226,7 @@ const projectModalValidation = (function () {
 })();
 
 const projectMenuView = (function () {
+  // addNewTodo.addNewTodoView();
   const projectMenu = document.querySelector(".project-menu");
   const formProjectList = document.querySelector(".form-project-selector");
 
@@ -225,11 +261,13 @@ const projectMenuView = (function () {
 })();
 
 const todoModal = (function () {
+  // addNewTodo.addNewTodoView();
   const modal = document.querySelector(".task-modal");
   const openModal = document.querySelector(".todo-new-task");
   const closeModal = document.querySelector(".todo-modal-close");
   const form = document.getElementById("new-todo-form");
   const submit = document.querySelector(".todo-submit");
+  console.log(openModal);
 
   openModal.addEventListener("click", () => {
     projectMenuView.addProjectToTodoSelectorForm();
@@ -393,39 +431,40 @@ const todoView = (function () {
     while (todoContainer.firstChild) {
       todoContainer.removeChild(todoContainer.lastChild);
     }
-    todoContainer.appendChild(addNewTodoButtonToView());
+    // todoContainer.appendChild(addNewTodoButtonToView());
   };
 
-  const addNewTodoButtonToView = () => {
-    const html = `              
-    <div class="row m-4 p-2 rounded todo-new-task" id="todo-hover">
-      <div
-        class="col-md-1 py-1 d-flex justify-content-md-end justify-content-center align-items-center"
-      >
-        <a>
-          <img
-            class=""
-            width="16"
-            height="16"
-            src="../icons/plus-circle.svg"
-          />
-        </a>
-      </div>
-      <div
-        class="col-md-7 d-flex align-items-center justify-content-md-start justify-content-center"
-      >
-        Add a new task!
-      </div>
-    </div>`;
-    const newElement = document.createElement("div");
-    newElement.classList = "hover-todo-new-task";
-    newElement.innerHTML = html;
-    return newElement;
-  };
+  // const addNewTodoButtonToView = () => {
+  //   const html = `
+  //   <div class="row m-4 p-2 rounded todo-new-task" id="todo-hover">
+  //     <div
+  //       class="col-md-1 py-1 d-flex justify-content-md-end justify-content-center align-items-center"
+  //     >
+  //       <a>
+  //         <img
+  //           class=""
+  //           width="16"
+  //           height="16"
+  //           src="../icons/plus-circle.svg"
+  //         />
+  //       </a>
+  //     </div>
+  //     <div
+  //       class="col-md-7 d-flex align-items-center justify-content-md-start justify-content-center"
+  //     >
+  //       Add a new task!
+  //     </div>
+  //   </div>`;
+  //   const newElement = document.createElement("div");
+  //   newElement.classList = "hover-todo-new-task";
+  //   newElement.innerHTML = html;
+  //   return newElement;
+  // };
 
   const addTodoToView = (todo) => {
-    const firstChild = todoContainer.firstElementChild;
-    firstChild.insertAdjacentElement("beforebegin", createTodoComponent(todo));
+    // const firstChild = todoContainer.firstElementChild;
+    // firstChild.insertAdjacentElement("beforebegin", createTodoComponent(todo));
+    todoContainer.appendChild(createTodoComponent(todo));
   };
 
   const createTodoComponent = (todo) => {
@@ -578,7 +617,20 @@ const tasksListener = (function () {
       const task = model.tasks.filter(
         (task) => task.title === title && task.dueDate === date
       );
-      console.log(task);
+      let index;
+      model.tasks.filter((t, i) => {
+        if (
+          task[0].title === t.title &&
+          task[0].description === t.description &&
+          task[0].dueDate === t.dueDate
+        ) {
+          index = i;
+        }
+      });
+
+      model.tasks.splice(index, 1);
+      todoView.removeAllTasks();
+      model.tasks.forEach((task) => todoView.addTodoToView(task));
     }
   });
 

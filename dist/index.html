@@ -225,89 +225,68 @@
               <!-- EDIT TASK-->
               <!-- EDIT TASK-->
 
-              <div class="modal-body p-5 pt-0 todo-edit">
-                <form class="border border-secondary p-3 rounded-3">
-                  <div class="form-floating mb-3">
-                    <input
-                      type="text"
-                      class="form-control rounded-4"
-                      id="floatingTitle"
-                      placeholder="name@example.com"
-                    />
-                    <label for="floatingTitle">Title</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <textarea
-                      type="text"
-                      rows="4"
-                      class="form-control rounded-4"
-                      id="floatingDescription"
-                      placeholder="Password"
-                    ></textarea>
-                    <label for="floatingDescription">Description</label>
-                  </div>
+              <div
+                class="modal modal-signin bg-secondary py-5 todo-edit edit-modal"
+                tabindex="-1"
+                role="dialog"
+                id="task-modal"
+              >
+                <div class="modal-dialog task-model-content" role="document">
+                  <div class="modal-content rounded-5 shadow">
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                      <h2 class="fw-bold mb-0">Editing your task</h2>
+                    </div>
 
-                  <div class="form-floating mb-3">
-                    <input
-                      type="date"
-                      class="form-control rounded-4"
-                      id="floatingDate"
-                      placeholder="Password"
-                    />
-                    <label for="floatingDate">Due Date</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <div class="form-check">
-                      <input
-                        class="form-check-input high-priority"
-                        type="checkbox"
-                        value=""
-                        id="highPriorityCheck"
-                      />
-                      <label class="form-check-label" for="highPriorityCheck"
-                        >High Priority</label
-                      >
+                    <div class="modal-body p-5 pt-0">
+                      <form class="" id="edit-modal-form">
+                        <div class="form-floating mb-3">
+                          <input
+                            type="text"
+                            name="title"
+                            class="form-control rounded-4"
+                            id="floatingTitle"
+                            placeholder="name@example.com"
+                          />
+                          <label for="floatingTitle">Title</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <textarea
+                            type="text"
+                            name="description"
+                            rows="4"
+                            class="form-control rounded-4"
+                            id="floatingDescription"
+                            placeholder="Password"
+                          ></textarea>
+                          <label for="floatingDescription">Description</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                          <input
+                            type="date"
+                            name="dueDate"
+                            class="form-control rounded-4"
+                            id="floatingDate"
+                            placeholder="Password"
+                          />
+                          <label for="floatingDate">Due Date</label>
+                        </div>
+                        <button
+                          class="w-100 mb-2 btn rounded-4 btn-primary my-2 edit-submit"
+                          type="submit"
+                        >
+                          Save Changes
+                        </button>
+                        <button
+                          class="w-100 mb-2 btn rounded-4 btn-secondary edit-cancel"
+                          type="button"
+                        >
+                          Cancel
+                        </button>
+                      </form>
                     </div>
                   </div>
-                  <div class="form-floating mb-3">
-                    <div class="form-check">
-                      <input
-                        class="form-check-input medium-priority"
-                        type="checkbox"
-                        value=""
-                        id="mediumPriorityCheck"
-                      />
-                      <label class="form-check-label" for="mediumPriorityCheck"
-                        >Medium Priority</label
-                      >
-                    </div>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <div class="form-check">
-                      <input
-                        class="form-check-input low-priority"
-                        type="checkbox"
-                        value=""
-                        id="lowPriorityCheck"
-                      />
-                      <label class="form-check-label" for="lowPriorityCheck"
-                        >Low Priority</label
-                      >
-                    </div>
-                  </div>
-                  <button
-                    class="w-100 mb-2 btn rounded-4 btn-primary"
-                    type="submit"
-                  >
-                    Save Changes
-                  </button>
-                  <button
-                    class="w-100 mb-2 btn rounded-4 btn-secondary"
-                    type="submit"
-                  >
-                    Cancel
-                  </button>
-                </form>
+                </div>
               </div>
 
               <!-- ADD NEW TASK-->

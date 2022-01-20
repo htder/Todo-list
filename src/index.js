@@ -49,7 +49,7 @@
 // // change arrow icon when details are showing and when they are not
 // // completing task - how does it interact with data
 //
-// strike through the title when the task is complete
+// // strike through the title when the task is complete
 // show edit slider when edit is pressed
 // showing task priority colour as the left border colour of the task
 // strike through the title when the task is complete
@@ -298,12 +298,18 @@ const todoModalValidation = (function () {
   };
 
   const notInFuture = (value) => {
+    const taskDate = new Date(`${value}`);
     const [year, month, day] = value.split("-");
     const currentDate = new Date();
     const cDay = currentDate.getDate();
     const cMonth = currentDate.getMonth() + 1;
     const cYear = currentDate.getFullYear();
-    return !(+year >= cYear && +month >= cMonth && +day >= cDay);
+
+    if (+year === cYear && +month === cMonth && +day === cDay) {
+      return false;
+    } else {
+      return !(taskDate > currentDate);
+    }
   };
 
   const showTitleError = (input, message) => {
@@ -361,6 +367,7 @@ const todoModalValidation = (function () {
   const checkDate = (element) => {
     let valid = false;
     const dueDate = element.value.trim();
+    console.log(dueDate);
     if (isRequired(dueDate)) {
       showDateError(element, "Due date cannot be empty");
     }
@@ -421,14 +428,13 @@ const todoView = (function () {
   <div
     class="col-md-1 d-flex align-items-center justify-md-start justify-content-center"
   >
-    <a href="#" class="nav-link link-dark">
       <img
-        class=""
+        class="task-edit"
         width="16"
         height="16"
         src="../icons/pencil-square.svg"
       />
-    </a>
+
   </div>
   <div
     class="col-md-1 d-flex align-items-center justify-md-start justify-content-center"
@@ -493,9 +499,12 @@ const tasksListener = (function () {
         date = row[7].textContent.trim();
         arrowImageDiv.innerHTML = upArrowHtml();
 
+        console.log(title, date);
+
         const task = model.tasks.filter(
           (task) => task.title === title && task.dueDate === date
         );
+        console.log(task);
         const descDiv = createDescriptionDiv(task);
         div.insertAdjacentElement("afterend", descDiv);
       }
@@ -510,6 +519,19 @@ const tasksListener = (function () {
 
         div.nextElementSibling.remove();
       }
+    }
+
+    if (editContainer) {
+      const row = Array.from(event.target.parentNode.parentNode.childNodes);
+      let title = row[3].textContent.trim();
+      let date = row[7].textContent.trim();
+      const task = model.tasks.filter(
+        (task) => task.title === title && task.dueDate === date
+      );
+      console.log(row);
+      console.log(task);
+      todoEditModal.fillForm(task);
+      todoEditModal.open();
     }
   });
 
@@ -536,6 +558,7 @@ const tasksListener = (function () {
   };
 
   const createDescriptionDiv = (task) => {
+    console.log(task);
     const html = `
     <div class="container-fluid py-1">
       <h6 class="fw-bold">Description</h6>
@@ -552,6 +575,70 @@ const tasksListener = (function () {
   };
 
   return {};
+})();
+
+const todoEditModal = (function () {
+  const modal = document.querySelector(".edit-modal");
+  const form = document.getElementById("edit-modal-form");
+  const submit = document.querySelector(".edit-submit");
+  const cancel = document.querySelector(".edit-cancel");
+
+  const open = () => {
+    modal.classList.remove("hide");
+    modal.classList.add("show");
+  };
+
+  const close = () => {
+    modal.classList.remove("show");
+    modal.classList.add("hide");
+  };
+
+  const fillForm = (task) => {
+    form["title"].value = task[0].title;
+    form["description"].value = task[0].description;
+    form["dueDate"].value = task[0].dueDate;
+
+    cancel.addEventListener("click", () => {
+      todoModalValidation.clearForm(form);
+      close();
+    });
+
+    submit.addEventListener("click", (event) => {
+      event.preventDefault();
+      const title = form["title"];
+      const description = form["description"];
+      const dueDate = form["dueDate"];
+      // validate form elements
+      let titleValid = todoModalValidation.checkTitle(title),
+        descriptionValid = todoModalValidation.checkDescription(description),
+        dateValid = todoModalValidation.checkDate(dueDate);
+
+      let isFormValid = titleValid && descriptionValid && dateValid;
+      if (isFormValid) {
+        // create todo
+        const newTodo = TodoTask(
+          title.value,
+          description.value,
+          dueDate.value,
+          task.completed,
+          task.priority,
+          task.project
+        );
+
+        const index = model.tasks.indexOf(task);
+        console.log(index);
+
+        // clear form
+        todoModalValidation.clearForm(form);
+        // model.tasks.forEach((task) => todoView.addTodoToView(task));
+
+        // close modal
+        close();
+      }
+    });
+  };
+
+  return { open, close, fillForm };
 })();
 
 model.projects.forEach((project) => projectMenuView.addProjectToView(project));

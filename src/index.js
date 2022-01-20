@@ -588,6 +588,8 @@ const tasksListener = (function () {
     const editContainer = event.target.classList.contains("task-edit");
     const deleteContainer = event.target.classList.contains("task-delete");
 
+    const homeActive = document.querySelector(".home-active");
+
     if (checkboxContainer) {
       const row = Array.from(event.target.parentNode.parentNode.childNodes);
       const title = row[3].textContent.trim();
@@ -673,6 +675,8 @@ const tasksListener = (function () {
       });
 
       model.tasks.splice(index, 1);
+      removeActive();
+      homeActive.classList.add("active");
       todoView.removeAllTasks();
       model.tasks.forEach((task) => todoView.addTodoToView(task));
     }
@@ -725,6 +729,9 @@ const todoEditModal = (function () {
   const form = document.getElementById("edit-modal-form");
   const submit = document.querySelector(".edit-submit");
   const cancel = document.querySelector(".edit-cancel");
+
+  const homeActive = document.querySelector(".home-active");
+
   let currentTask;
 
   const open = () => {
@@ -789,6 +796,8 @@ const todoEditModal = (function () {
       // clear form
       todoModalValidation.clearForm(form);
 
+      removeActive();
+      homeActive.classList.add("active");
       todoView.removeAllTasks();
       model.tasks.forEach((task) => todoView.addTodoToView(task));
 

@@ -401,7 +401,7 @@ const todoView = (function () {
   <div
     class="col-md-6 d-flex align-items-center justify-content-md-start justify-content-center"
   >
-    ${todo.title}
+    ${todo.completed ? `<del>${todo.title}</del>` : `${todo.title}`}
   </div>
     <div
         class="col-md-1 d-flex align-items-center justify-md-start justify-content-center task-arrow"
@@ -471,8 +471,12 @@ const tasksListener = (function () {
       const task = model.tasks.filter(
         (task) => task.title === title && task.dueDate === date
       );
-      console.log(task);
       task[0].completed = !task[0].completed;
+      if (task[0].completed) {
+        row[3].innerHTML = `<del>${row[3].innerHTML}</del>`;
+      } else {
+        row[3].innerHTML = row[3].innerHTML.replace(/(<([^>]+)>)/gi, "");
+      }
     }
 
     if (arrowContainer) {

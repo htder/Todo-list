@@ -54,8 +54,8 @@
 // // showing task priority colour as the left border colour of the task
 // // deleteing task - how does it interact with data
 // // populate the today and this week views with the correct tasks
-// populate each project with the correct tasks
-//
+// // populate each project with the correct tasks
+// add localstorage to project
 //
 //
 
@@ -66,14 +66,21 @@ import { Project } from "./project.js";
 
 const model = {
   tasks: [
-    TodoTask("Hello World", "one two three", "2022-01-21", true, "high", "All"),
+    TodoTask(
+      "Hello World",
+      "one two three",
+      "2022-01-21",
+      true,
+      "high",
+      "Starter"
+    ),
     TodoTask(
       "World Hello",
       "one two three",
       "2022-01-20",
       false,
       "low",
-      "Project 2"
+      "Starter"
     ),
     TodoTask(
       "One One One",
@@ -81,30 +88,15 @@ const model = {
       "2022-09-17",
       true,
       "middle",
-      "Project 2"
-    ),
-    TodoTask(
-      "Two Two Two",
-      "Two Hello",
-      "2022-01-20",
-      false,
-      "high",
-      "Project 3"
-    ),
-    TodoTask(
-      "Three Three Three",
-      "Three Hello",
-      "2022-12-25",
-      false,
-      "high",
-      "All"
+      "Starter"
     ),
   ],
-  projects: [Project("All"), Project("Project 2"), Project("Project 3")],
+  projects: [Project("Starter")],
 };
 
 let weeksTasks = [];
 let todaysTasks = [];
+let projectTasks = [];
 
 // const addNewTodo = (function () {
 //   const todoContainer = document.querySelector(".todo-container");
@@ -165,7 +157,6 @@ const menuController = (function () {
           currentTasks.push(task);
         }
       });
-      console.log(todaysTasks);
       todaysTasks = currentTasks;
       todoView.removeAllTasks();
       todaysTasks.forEach((task) => todoView.addTodoToView(task));
@@ -178,7 +169,6 @@ const menuController = (function () {
           currentTasks.push(task);
         }
       });
-      console.log(weeksTasks);
       weeksTasks = currentTasks;
       todoView.removeAllTasks();
       weeksTasks.forEach((task) => todoView.addTodoToView(task));
@@ -190,8 +180,16 @@ const menuController = (function () {
       console.log(projectName);
 
       // filter tasks with projects name
-
+      const currentTasks = [];
+      model.tasks.forEach((task) => {
+        if (task.project === projectName) {
+          currentTasks.push(task);
+        }
+      });
       // render tasks
+      projectTasks = currentTasks;
+      todoView.removeAllTasks();
+      projectTasks.forEach((task) => todoView.addTodoToView(task));
     }
   });
 })();
@@ -652,6 +650,7 @@ const tasksListener = (function () {
 
     if (editContainer) {
       const row = Array.from(event.target.parentNode.parentNode.childNodes);
+      console.log(row);
       let title = row[3].textContent.trim();
       let date = row[7].textContent.trim();
       const task = model.tasks.filter(
@@ -777,14 +776,16 @@ const todoEditModal = (function () {
     let isFormValid = titleValid && descriptionValid && dateValid;
     if (isFormValid) {
       // create todo
+      console.log(currentTask);
       const newTodo = TodoTask(
         title.value,
         description.value,
         dueDate.value,
-        currentTask.completed,
-        currentTask.priority,
-        currentTask.project
+        currentTask[0].completed,
+        currentTask[0].priority,
+        currentTask[0].project
       );
+      console.log(newTodo);
 
       let index;
       model.tasks.filter((t, i) => {

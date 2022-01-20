@@ -52,12 +52,14 @@
 // // strike through the title when the task is complete
 // // show edit slider when edit is pressed
 // // showing task priority colour as the left border colour of the task
-// deleteing task - how does it interact with data
+// // deleteing task - how does it interact with data
 // populate the today and this week views with the correct tasks
 // populate each project with the correct tasks
 //
 //
 //
+
+import { isSameWeek, isSameDay } from "date-fns";
 
 import { TodoTask } from "./task.js";
 import { Project } from "./project.js";
@@ -68,7 +70,7 @@ const model = {
     TodoTask(
       "World Hello",
       "one two three",
-      "2022-02-01",
+      "2022-01-20",
       false,
       "low",
       "Project 2"
@@ -84,7 +86,7 @@ const model = {
     TodoTask(
       "Two Two Two",
       "Two Hello",
-      "2022-01-09",
+      "2022-01-20",
       false,
       "high",
       "Project 3"
@@ -100,6 +102,9 @@ const model = {
   ],
   projects: [Project("All"), Project("Project 2"), Project("Project 3")],
 };
+
+let weeksTasks = [];
+let todaysTasks = [];
 
 // const addNewTodo = (function () {
 //   const todoContainer = document.querySelector(".todo-container");
@@ -142,6 +147,45 @@ const menuController = (function () {
     removeActive();
     if (event.target.closest("a") === null) return;
     event.target.closest("a").classList.add("active");
+
+    const todayButton = event.target.classList.contains("today");
+    const weekButton = event.target.classList.contains("week");
+    const homeButton = event.target.classList.contains("home");
+
+    if (homeButton) {
+      todoView.removeAllTasks();
+      model.tasks.forEach((task) => todoView.addTodoToView(task));
+    }
+
+    if (todayButton) {
+      const currentTasks = [];
+      model.tasks.forEach((task) => {
+        if (isSameDay(new Date(task.dueDate), new Date())) {
+          currentTasks.push(task);
+        }
+      });
+      console.log(todaysTasks);
+      todaysTasks = currentTasks;
+      todoView.removeAllTasks();
+      todaysTasks.forEach((task) => todoView.addTodoToView(task));
+    }
+
+    if (weekButton) {
+      const currentTasks = [];
+      model.tasks.forEach((task) => {
+        if (isSameWeek(new Date(task.dueDate), new Date())) {
+          currentTasks.push(task);
+        }
+      });
+      console.log(weeksTasks);
+      weeksTasks = currentTasks;
+      todoView.removeAllTasks();
+      weeksTasks.forEach((task) => todoView.addTodoToView(task));
+    }
+
+    // if (project) {
+    //   render project's tasks
+    // }
   });
 })();
 

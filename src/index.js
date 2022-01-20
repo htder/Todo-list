@@ -53,7 +53,7 @@
 // // show edit slider when edit is pressed
 // // showing task priority colour as the left border colour of the task
 // // deleteing task - how does it interact with data
-// populate the today and this week views with the correct tasks
+// // populate the today and this week views with the correct tasks
 // populate each project with the correct tasks
 //
 //
@@ -151,6 +151,7 @@ const menuController = (function () {
     const todayButton = event.target.classList.contains("today");
     const weekButton = event.target.classList.contains("week");
     const homeButton = event.target.classList.contains("home");
+    const project = event.target.classList.contains("project");
 
     if (homeButton) {
       todoView.removeAllTasks();
@@ -183,9 +184,15 @@ const menuController = (function () {
       weeksTasks.forEach((task) => todoView.addTodoToView(task));
     }
 
-    // if (project) {
-    //   render project's tasks
-    // }
+    if (project) {
+      const projectName =
+        event.target.closest(".nav-item").lastChild.childNodes[2].textContent;
+      console.log(projectName);
+
+      // filter tasks with projects name
+
+      // render tasks
+    }
   });
 })();
 
@@ -280,13 +287,13 @@ const projectMenuView = (function () {
 
   const createProjectComponent = (project) => {
     const html = `
-      <a href="#" class="nav-link menu-button link-dark rounded">
+      <a href="#" class="nav-link menu-button link-dark rounded project">
         <img
-          class="bi me-2"
+          class="bi me-2 project"
           width="16"
           height="16"
           src="../icons/arrow-right-short.svg"
-        /><span class="d-none d-sm-inline">${project.title}</span></a
+        /><span class="d-none d-sm-inline project">${project.title}</span></a
       >`;
     const newElement = document.createElement("li");
     newElement.classList = "nav-item m-1";
@@ -311,7 +318,6 @@ const todoModal = (function () {
   const closeModal = document.querySelector(".todo-modal-close");
   const form = document.getElementById("new-todo-form");
   const submit = document.querySelector(".todo-submit");
-  console.log(openModal);
 
   openModal.addEventListener("click", () => {
     projectMenuView.addProjectToTodoSelectorForm();

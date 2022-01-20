@@ -13,15 +13,15 @@ small {
 }
 
 .red-border {
-  border-left: 3px solid red;
+  border-left: 8px solid red;
 }
 
 .orange-border {
-  border-left: 3px solid orange;
+  border-left: 8px solid orange;
 }
 
 .green-border {
-  border-left: 3px solid green;
+  border-left: 8px solid green;
 }
 
 .task-arrow-image-down,

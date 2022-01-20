@@ -55,7 +55,7 @@
 // // deleteing task - how does it interact with data
 // // populate the today and this week views with the correct tasks
 // // populate each project with the correct tasks
-// add localstorage to project
+// // add localstorage to project
 //
 //
 
@@ -64,7 +64,7 @@ import { isSameWeek, isSameDay } from "date-fns";
 import { TodoTask } from "./task.js";
 import { Project } from "./project.js";
 
-const model = {
+let model = {
   tasks: [
     TodoTask(
       "Hello World",
@@ -93,6 +93,31 @@ const model = {
   ],
   projects: [Project("Starter")],
 };
+
+const storage = (function () {
+  const modelChanged = () => {
+    writeStorage();
+    readStorage();
+  };
+
+  function writeStorage() {
+    window.localStorage.setItem("model", JSON.stringify(model));
+  }
+
+  function readStorage() {
+    if (window.localStorage.getItem("model")) {
+      model = JSON.parse(window.localStorage.getItem("model"));
+    }
+  }
+
+  function resetStorage() {
+    localStorage.setItem("model", JSON.stringify(model));
+  }
+  return { writeStorage, readStorage, resetStorage };
+})();
+
+// storage.resetStorage();
+storage.readStorage();
 
 let weeksTasks = [];
 let todaysTasks = [];
@@ -227,6 +252,8 @@ const projectModal = (function () {
       projectMenuView.addProjectToView(newProject);
       // clear form
       projectModalValidation.clearForm(form);
+      // add project to localstorage
+      storage.writeStorage();
       // close modal
       hideModal();
     }
@@ -310,7 +337,6 @@ const projectMenuView = (function () {
 })();
 
 const todoModal = (function () {
-  // addNewTodo.addNewTodoView();
   const modal = document.querySelector(".task-modal");
   const openModal = document.querySelector(".todo-new-task");
   const closeModal = document.querySelector(".todo-modal-close");
@@ -361,6 +387,9 @@ const todoModal = (function () {
       todoView.addTodoToView(newTodo);
       // clear form
       todoModalValidation.clearForm(form);
+      // add todo to local storage
+      storage.writeStorage();
+
       // close modal
       close();
     }
@@ -608,6 +637,7 @@ const tasksListener = (function () {
       } else {
         row[3].innerHTML = row[3].innerHTML.replace(/(<([^>]+)>)/gi, "");
       }
+      storage.writeStorage();
     }
 
     if (arrowContainer) {
@@ -684,6 +714,7 @@ const tasksListener = (function () {
       homeActive.classList.add("active");
       todoView.removeAllTasks();
       model.tasks.forEach((task) => todoView.addTodoToView(task));
+      storage.writeStorage();
     }
   });
 
@@ -809,6 +840,7 @@ const todoEditModal = (function () {
       model.tasks.forEach((task) => todoView.addTodoToView(task));
 
       // close modal
+      storage.writeStorage();
       close();
     }
   });

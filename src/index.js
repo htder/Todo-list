@@ -51,7 +51,7 @@
 //
 // // strike through the title when the task is complete
 // // show edit slider when edit is pressed
-// showing task priority colour as the left border colour of the task
+// // showing task priority colour as the left border colour of the task
 // deleteing task - how does it interact with data
 // populate the today and this week views with the correct tasks
 // populate each project with the correct tasks
@@ -471,17 +471,21 @@ const todoView = (function () {
   <div
     class="col-md-1 d-flex align-items-center justify-md-start justify-content-center"
   >
-    <a href="#" class="nav-link link-dark">
       <img
-        class=""
+        class="task-delete"
         width="16"
         height="16"
         src="../icons/trash.svg"
       />
-    </a>
   </div>`;
     const newElement = document.createElement("div");
-    newElement.classList = "row m-4 p-2 bg-white rounded-3 border-bottom";
+    newElement.classList = `row m-4 p-2 bg-white rounded-3 border-bottom  ${
+      todo.priority === "high"
+        ? "red-border"
+        : todo.priority === "middle"
+        ? "orange-border"
+        : "green-border"
+    }`;
     newElement.innerHTML = html;
     return newElement;
   };
@@ -562,10 +566,19 @@ const tasksListener = (function () {
       const task = model.tasks.filter(
         (task) => task.title === title && task.dueDate === date
       );
-      console.log();
       console.log(task);
       todoEditModal.fillForm(task);
       todoEditModal.open();
+    }
+
+    if (deleteContainer) {
+      const row = Array.from(event.target.parentNode.parentNode.childNodes);
+      let title = row[3].textContent.trim();
+      let date = row[7].textContent.trim();
+      const task = model.tasks.filter(
+        (task) => task.title === title && task.dueDate === date
+      );
+      console.log(task);
     }
   });
 

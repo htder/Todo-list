@@ -12,6 +12,18 @@ small {
   color: #ff4d4d;
 }
 
+.red-border {
+  border-left: 3px solid red;
+}
+
+.orange-border {
+  border-left: 3px solid orange;
+}
+
+.green-border {
+  border-left: 3px solid green;
+}
+
 .task-arrow-image-down,
 .task-arrow-image-up,
 .task-edit {

@@ -116,46 +116,14 @@ const storage = (function () {
   return { writeStorage, readStorage, resetStorage };
 })();
 
+// RUN TO CLEAR LOCAL STORAGE
 // storage.resetStorage();
+
 storage.readStorage();
 
 let weeksTasks = [];
 let todaysTasks = [];
 let projectTasks = [];
-
-// const addNewTodo = (function () {
-//   const todoContainer = document.querySelector(".todo-container");
-
-//   const addNewTodoView = () => {
-//     const html = `
-//     <div class="row m-4 p-2 rounded todo-new-task" id="todo-hover">
-//       <div
-//         class="col-md-1 py-1 d-flex justify-content-md-end justify-content-center align-items-center"
-//       >
-//         <a>
-//           <img
-//             class=""
-//             width="16"
-//             height="16"
-//             src="../icons/plus-circle.svg"
-//           />
-//         </a>
-//       </div>
-//       <div
-//         class="col-md-7 d-flex align-items-center justify-content-md-start justify-content-center"
-//       >
-//         Add a new task!
-//       </div>
-//     </div>`;
-//     const newElement = document.createElement("div");
-//     newElement.classList = "hover-todo-new-task";
-//     newElement.innerHTML = html;
-//     return newElement;
-//   };
-//   return { addNewTodoView };
-// })();
-
-// addNewTodo.addNewTodoView();
 
 const menuController = (function () {
   const sidebar = document.querySelector(".sidebar");
@@ -204,14 +172,12 @@ const menuController = (function () {
         event.target.closest(".nav-item").lastChild.childNodes[2].textContent;
       console.log(projectName);
 
-      // filter tasks with projects name
       const currentTasks = [];
       model.tasks.forEach((task) => {
         if (task.project === projectName) {
           currentTasks.push(task);
         }
       });
-      // render tasks
       projectTasks = currentTasks;
       todoView.removeAllTasks();
       projectTasks.forEach((task) => todoView.addTodoToView(task));
@@ -302,7 +268,6 @@ const projectModalValidation = (function () {
 })();
 
 const projectMenuView = (function () {
-  // addNewTodo.addNewTodoView();
   const projectMenu = document.querySelector(".project-menu");
   const formProjectList = document.querySelector(".form-project-selector");
 
@@ -508,39 +473,9 @@ const todoView = (function () {
     while (todoContainer.firstChild) {
       todoContainer.removeChild(todoContainer.lastChild);
     }
-    // todoContainer.appendChild(addNewTodoButtonToView());
   };
 
-  // const addNewTodoButtonToView = () => {
-  //   const html = `
-  //   <div class="row m-4 p-2 rounded todo-new-task" id="todo-hover">
-  //     <div
-  //       class="col-md-1 py-1 d-flex justify-content-md-end justify-content-center align-items-center"
-  //     >
-  //       <a>
-  //         <img
-  //           class=""
-  //           width="16"
-  //           height="16"
-  //           src="../icons/plus-circle.svg"
-  //         />
-  //       </a>
-  //     </div>
-  //     <div
-  //       class="col-md-7 d-flex align-items-center justify-content-md-start justify-content-center"
-  //     >
-  //       Add a new task!
-  //     </div>
-  //   </div>`;
-  //   const newElement = document.createElement("div");
-  //   newElement.classList = "hover-todo-new-task";
-  //   newElement.innerHTML = html;
-  //   return newElement;
-  // };
-
   const addTodoToView = (todo) => {
-    // const firstChild = todoContainer.firstElementChild;
-    // firstChild.insertAdjacentElement("beforebegin", createTodoComponent(todo));
     todoContainer.appendChild(createTodoComponent(todo));
   };
 
@@ -611,7 +546,6 @@ const todoView = (function () {
 
 const tasksListener = (function () {
   const todoMainContainer = document.querySelector(".todo-main-container");
-  //   const todoContainer = document.querySelector(".todo-container");
 
   todoMainContainer.addEventListener("click", (event) => {
     const checkboxContainer = event.target.classList.contains("task-checkbox");

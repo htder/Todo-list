@@ -50,9 +50,8 @@
 // // completing task - how does it interact with data
 //
 // // strike through the title when the task is complete
-// show edit slider when edit is pressed
+// // show edit slider when edit is pressed
 // showing task priority colour as the left border colour of the task
-// strike through the title when the task is complete
 // deleteing task - how does it interact with data
 // populate the today and this week views with the correct tasks
 // populate each project with the correct tasks
@@ -367,7 +366,6 @@ const todoModalValidation = (function () {
   const checkDate = (element) => {
     let valid = false;
     const dueDate = element.value.trim();
-    console.log(dueDate);
     if (isRequired(dueDate)) {
       showDateError(element, "Due date cannot be empty");
     }
@@ -390,6 +388,40 @@ const todoModalValidation = (function () {
 
 const todoView = (function () {
   const todoContainer = document.querySelector(".todo-container");
+
+  const removeAllTasks = () => {
+    while (todoContainer.firstChild) {
+      todoContainer.removeChild(todoContainer.lastChild);
+    }
+    todoContainer.appendChild(addNewTodoButtonToView());
+  };
+
+  const addNewTodoButtonToView = () => {
+    const html = `              
+    <div class="row m-4 p-2 rounded todo-new-task" id="todo-hover">
+      <div
+        class="col-md-1 py-1 d-flex justify-content-md-end justify-content-center align-items-center"
+      >
+        <a>
+          <img
+            class=""
+            width="16"
+            height="16"
+            src="../icons/plus-circle.svg"
+          />
+        </a>
+      </div>
+      <div
+        class="col-md-7 d-flex align-items-center justify-content-md-start justify-content-center"
+      >
+        Add a new task!
+      </div>
+    </div>`;
+    const newElement = document.createElement("div");
+    newElement.classList = "hover-todo-new-task";
+    newElement.innerHTML = html;
+    return newElement;
+  };
 
   const addTodoToView = (todo) => {
     const firstChild = todoContainer.firstElementChild;
@@ -454,7 +486,7 @@ const todoView = (function () {
     return newElement;
   };
 
-  return { addTodoToView };
+  return { addTodoToView, removeAllTasks };
 })();
 
 const tasksListener = (function () {
@@ -495,6 +527,8 @@ const tasksListener = (function () {
         const row = Array.from(event.target.parentNode.parentNode.childNodes);
         let arrowImageDiv = event.target.parentNode;
         div = event.target.parentNode.parentNode;
+        console.log(row);
+        console.log(div);
         title = row[3].textContent.trim();
         date = row[7].textContent.trim();
         arrowImageDiv.innerHTML = upArrowHtml();
@@ -528,7 +562,7 @@ const tasksListener = (function () {
       const task = model.tasks.filter(
         (task) => task.title === title && task.dueDate === date
       );
-      console.log(row);
+      console.log();
       console.log(task);
       todoEditModal.fillForm(task);
       todoEditModal.open();
@@ -582,6 +616,7 @@ const todoEditModal = (function () {
   const form = document.getElementById("edit-modal-form");
   const submit = document.querySelector(".edit-submit");
   const cancel = document.querySelector(".edit-cancel");
+  let currentTask;
 
   const open = () => {
     modal.classList.remove("hide");
@@ -594,49 +629,64 @@ const todoEditModal = (function () {
   };
 
   const fillForm = (task) => {
+    currentTask = task;
+    console.log(currentTask);
     form["title"].value = task[0].title;
     form["description"].value = task[0].description;
     form["dueDate"].value = task[0].dueDate;
-
-    cancel.addEventListener("click", () => {
-      todoModalValidation.clearForm(form);
-      close();
-    });
-
-    submit.addEventListener("click", (event) => {
-      event.preventDefault();
-      const title = form["title"];
-      const description = form["description"];
-      const dueDate = form["dueDate"];
-      // validate form elements
-      let titleValid = todoModalValidation.checkTitle(title),
-        descriptionValid = todoModalValidation.checkDescription(description),
-        dateValid = todoModalValidation.checkDate(dueDate);
-
-      let isFormValid = titleValid && descriptionValid && dateValid;
-      if (isFormValid) {
-        // create todo
-        const newTodo = TodoTask(
-          title.value,
-          description.value,
-          dueDate.value,
-          task.completed,
-          task.priority,
-          task.project
-        );
-
-        const index = model.tasks.indexOf(task);
-        console.log(index);
-
-        // clear form
-        todoModalValidation.clearForm(form);
-        // model.tasks.forEach((task) => todoView.addTodoToView(task));
-
-        // close modal
-        close();
-      }
-    });
   };
+
+  cancel.addEventListener("click", () => {
+    todoModalValidation.clearForm(form);
+    close();
+  });
+
+  submit.addEventListener("click", (event) => {
+    console.log(currentTask);
+    event.preventDefault();
+    const title = form["title"];
+    const description = form["description"];
+    const dueDate = form["dueDate"];
+    // validate form elements
+    let titleValid = todoModalValidation.checkTitle(title),
+      descriptionValid = todoModalValidation.checkDescription(description),
+      dateValid = todoModalValidation.checkDate(dueDate);
+
+    let isFormValid = titleValid && descriptionValid && dateValid;
+    if (isFormValid) {
+      // create todo
+      const newTodo = TodoTask(
+        title.value,
+        description.value,
+        dueDate.value,
+        currentTask.completed,
+        currentTask.priority,
+        currentTask.project
+      );
+
+      let index;
+      model.tasks.filter((t, i) => {
+        if (
+          currentTask[0].title === t.title &&
+          currentTask[0].description === t.description &&
+          currentTask[0].dueDate === t.dueDate
+        ) {
+          index = i;
+        }
+      });
+
+      model.tasks.splice(index, 1, newTodo);
+
+      // clear form
+      todoModalValidation.clearForm(form);
+
+      todoView.removeAllTasks();
+      model.tasks.forEach((task) => todoView.addTodoToView(task));
+
+      // close modal
+      close();
+    }
+  });
 
   return { open, close, fillForm };
 })();

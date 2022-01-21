@@ -170,7 +170,6 @@ const menuController = (function () {
     if (project) {
       const projectName =
         event.target.closest(".nav-item").lastChild.childNodes[2].textContent;
-      console.log(projectName);
 
       const currentTasks = [];
       model.tasks.forEach((task) => {
@@ -584,18 +583,13 @@ const tasksListener = (function () {
         const row = Array.from(event.target.parentNode.parentNode.childNodes);
         let arrowImageDiv = event.target.parentNode;
         div = event.target.parentNode.parentNode;
-        console.log(row);
-        console.log(div);
         title = row[3].textContent.trim();
         date = row[7].textContent.trim();
         arrowImageDiv.innerHTML = upArrowHtml();
 
-        console.log(title, date);
-
         const task = model.tasks.filter(
           (task) => task.title === title && task.dueDate === date
         );
-        console.log(task);
         const descDiv = createDescriptionDiv(task);
         div.insertAdjacentElement("afterend", descDiv);
       }
@@ -614,13 +608,11 @@ const tasksListener = (function () {
 
     if (editContainer) {
       const row = Array.from(event.target.parentNode.parentNode.childNodes);
-      console.log(row);
       let title = row[3].textContent.trim();
       let date = row[7].textContent.trim();
       const task = model.tasks.filter(
         (task) => task.title === title && task.dueDate === date
       );
-      console.log(task);
       todoEditModal.fillForm(task);
       removeActive();
       homeActive.classList.add("active");
@@ -677,7 +669,6 @@ const tasksListener = (function () {
   };
 
   const createDescriptionDiv = (task) => {
-    console.log(task);
     const html = `
     <div class="container-fluid py-1">
       <h6 class="fw-bold">Description</h6>
@@ -718,7 +709,6 @@ const todoEditModal = (function () {
 
   const fillForm = (task) => {
     currentTask = task;
-    console.log(currentTask);
     form["title"].value = task[0].title;
     form["description"].value = task[0].description;
     form["dueDate"].value = task[0].dueDate;
@@ -730,7 +720,6 @@ const todoEditModal = (function () {
   });
 
   submit.addEventListener("click", (event) => {
-    console.log(currentTask);
     event.preventDefault();
     const title = form["title"];
     const description = form["description"];
@@ -743,7 +732,6 @@ const todoEditModal = (function () {
     let isFormValid = titleValid && descriptionValid && dateValid;
     if (isFormValid) {
       // create todo
-      console.log(currentTask);
       const newTodo = TodoTask(
         title.value,
         description.value,
@@ -752,7 +740,6 @@ const todoEditModal = (function () {
         currentTask[0].priority,
         currentTask[0].project
       );
-      console.log(newTodo);
 
       let index;
       model.tasks.filter((t, i) => {

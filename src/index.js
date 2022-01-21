@@ -59,7 +59,7 @@
 //
 //
 
-import { isSameWeek, isSameDay } from "date-fns";
+import { isSameWeek, isSameDay, format, addDays } from "date-fns";
 
 import { TodoTask } from "./task.js";
 import { Project } from "./project.js";
@@ -67,25 +67,25 @@ import { Project } from "./project.js";
 let model = {
   tasks: [
     TodoTask(
-      "Hello World",
-      "one two three",
-      "2022-01-21",
+      "Dishes",
+      "Clean the dishes",
+      format(new Date(), "yyyy-MM-dd"),
       true,
       "high",
       "Starter"
     ),
     TodoTask(
-      "World Hello",
-      "one two three",
-      "2022-01-20",
+      "Walk dogs",
+      "Take Alfie and Poppy for a walk",
+      format(addDays(new Date(), 1), "yyyy-MM-dd"),
       false,
       "low",
       "Starter"
     ),
     TodoTask(
-      "One One One",
-      "One Hello",
-      "2022-09-17",
+      "Tidy",
+      "Vacuum house and dust",
+      format(addDays(new Date(), 1), "yyyy-MM-dd"),
       true,
       "middle",
       "Starter"
@@ -119,7 +119,7 @@ const storage = (function () {
 // RUN TO CLEAR LOCAL STORAGE
 // storage.resetStorage();
 
-storage.readStorage();
+// storage.readStorage();
 
 let weeksTasks = [];
 let todaysTasks = [];
@@ -129,8 +129,13 @@ const menuController = (function () {
   const sidebar = document.querySelector(".sidebar");
 
   sidebar.addEventListener("click", (event) => {
+    if (
+      event.target.closest("a") === null ||
+      event.target.classList.contains("projet-header")
+    )
+      return;
     removeActive();
-    if (event.target.closest("a") === null) return;
+
     event.target.closest("a").classList.add("active");
 
     const todayButton = event.target.classList.contains("today");
@@ -218,7 +223,7 @@ const projectModal = (function () {
       // clear form
       projectModalValidation.clearForm(form);
       // add project to localstorage
-      storage.writeStorage();
+      // storage.writeStorage();
       // close modal
       hideModal();
     }
@@ -352,7 +357,7 @@ const todoModal = (function () {
       // clear form
       todoModalValidation.clearForm(form);
       // add todo to local storage
-      storage.writeStorage();
+      // storage.writeStorage();
 
       // close modal
       close();
@@ -570,7 +575,7 @@ const tasksListener = (function () {
       } else {
         row[3].innerHTML = row[3].innerHTML.replace(/(<([^>]+)>)/gi, "");
       }
-      storage.writeStorage();
+      // storage.writeStorage();
     }
 
     if (arrowContainer) {
@@ -642,7 +647,7 @@ const tasksListener = (function () {
       homeActive.classList.add("active");
       todoView.removeAllTasks();
       model.tasks.forEach((task) => todoView.addTodoToView(task));
-      storage.writeStorage();
+      // storage.writeStorage();
     }
   });
 
@@ -763,7 +768,7 @@ const todoEditModal = (function () {
       model.tasks.forEach((task) => todoView.addTodoToView(task));
 
       // close modal
-      storage.writeStorage();
+      // storage.writeStorage();
       close();
     }
   });

@@ -24,6 +24,10 @@ small {
   border-left: 8px solid green;
 }
 
+.projet-header {
+  cursor: default;
+}
+
 .task-arrow-image-down,
 .task-arrow-image-up,
 .task-edit,

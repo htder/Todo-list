@@ -622,6 +622,8 @@ const tasksListener = (function () {
       );
       console.log(task);
       todoEditModal.fillForm(task);
+      removeActive();
+      homeActive.classList.add("active");
       todoEditModal.open();
     }
 
